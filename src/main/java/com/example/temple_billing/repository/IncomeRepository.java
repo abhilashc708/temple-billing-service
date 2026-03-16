@@ -18,10 +18,16 @@ public interface IncomeRepository extends JpaRepository<Income, Long>,
 
     long countByReceiptDate(LocalDate receiptDate);
 
-    @Query("""
-            SELECT COALESCE(SUM(i.amount),0)
-            FROM Income i
-            WHERE DATE(i.createdDate)=CURRENT_DATE
-            """)
+//    @Query("""
+//            SELECT COALESCE(SUM(i.amount),0)
+//            FROM Income i
+//            WHERE DATE(i.createdDate)=CURRENT_DATE
+//            """)
+@Query("""
+SELECT COALESCE(SUM(i.amount),0)
+FROM Income i
+WHERE i.createdDate >= CURRENT_DATE
+AND i.createdDate < CURRENT_DATE + 1
+""")
     Double getTodayIncomeTotal();
 }

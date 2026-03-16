@@ -19,10 +19,16 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long>,
 
     long countByReceiptDate(LocalDate receiptDate);
 
-    @Query("""
-            SELECT COALESCE(SUM(e.amount),0)
-            FROM Expense e
-            WHERE DATE(e.createdDate)=CURRENT_DATE
-            """)
+//    @Query("""
+//            SELECT COALESCE(SUM(e.amount),0)
+//            FROM Expense e
+//            WHERE DATE(e.createdDate)=CURRENT_DATE
+//            """)
+@Query("""
+SELECT COALESCE(SUM(e.amount),0)
+FROM Expense e
+WHERE e.createdDate >= CURRENT_DATE
+AND e.createdDate < CURRENT_DATE + 1
+""")
     Double getTodayExpenseTotal();
 }
