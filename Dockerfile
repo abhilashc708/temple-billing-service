@@ -1,5 +1,6 @@
 # Use an official Maven image to build the app
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+#FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 
