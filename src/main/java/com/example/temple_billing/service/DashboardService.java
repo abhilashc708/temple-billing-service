@@ -7,6 +7,9 @@ import com.example.temple_billing.repository.IncomeRepository;
 import com.example.temple_billing.repository.ReceiptRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 public class DashboardService {
 
@@ -47,9 +50,19 @@ public class DashboardService {
             }
         }
 
-        Double otherIncome = incomeRepository.getTodayIncomeTotal();
+        LocalDate today = LocalDate.now();
+
+        LocalDateTime start = today.atStartOfDay();
+        LocalDateTime end = today.plusDays(1).atStartOfDay();
+
+
+//        Double otherIncome = incomeRepository.getTodayIncomeTotal();
+//        Double donationTotal = donationRepository.getTodayDonationTotal();
+//        Double expenseTotal = expenseRepository.getTodayExpenseTotal();
+
+        Double otherIncome = incomeRepository.getTodayIncomeTotal(start, end);
         Double donationTotal = donationRepository.getTodayDonationTotal();
-        Double expenseTotal = expenseRepository.getTodayExpenseTotal();
+        Double expenseTotal = expenseRepository.getTodayExpenseTotal(start, end);
 
         if (otherIncome == null) otherIncome = 0.0;
         if (donationTotal == null) donationTotal = 0.0;

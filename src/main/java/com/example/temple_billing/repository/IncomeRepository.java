@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Repository
 public interface IncomeRepository extends JpaRepository<Income, Long>,
@@ -23,11 +24,11 @@ public interface IncomeRepository extends JpaRepository<Income, Long>,
 //            FROM Income i
 //            WHERE DATE(i.createdDate)=CURRENT_DATE
 //            """)
+//    Double getTodayIncomeTotal();
 @Query("""
 SELECT COALESCE(SUM(i.amount),0)
 FROM Income i
-WHERE i.createdDate >= CURRENT_DATE
-AND i.createdDate < CURRENT_DATE + 1
+WHERE i.createdDate BETWEEN :start AND :end
 """)
-    Double getTodayIncomeTotal();
+Double getTodayIncomeTotal(LocalDateTime start, LocalDateTime end);
 }

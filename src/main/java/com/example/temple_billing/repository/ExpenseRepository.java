@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Repository
 public interface ExpenseRepository extends JpaRepository<Expense, Long>,
@@ -24,11 +25,12 @@ public interface ExpenseRepository extends JpaRepository<Expense, Long>,
 //            FROM Expense e
 //            WHERE DATE(e.createdDate)=CURRENT_DATE
 //            """)
-@Query("""
+//    Double getTodayExpenseTotal();
+
+    @Query("""
 SELECT COALESCE(SUM(e.amount),0)
 FROM Expense e
-WHERE e.createdDate >= CURRENT_DATE
-AND e.createdDate < CURRENT_DATE + 1
+WHERE e.createdDate BETWEEN :start AND :end
 """)
-    Double getTodayExpenseTotal();
+    Double getTodayExpenseTotal(LocalDateTime start, LocalDateTime end);
 }
