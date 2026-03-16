@@ -61,7 +61,7 @@ public class DashboardService {
 //        Double expenseTotal = expenseRepository.getTodayExpenseTotal();
 
         Double otherIncome = incomeRepository.getTodayIncomeTotal(start, end);
-        Double donationTotal = donationRepository.getTodayDonationTotal();
+        Double donationTotal = donationRepository.getTodayDonationTotal(start, end);
         Double expenseTotal = expenseRepository.getTodayExpenseTotal(start, end);
 
         if (otherIncome == null) otherIncome = 0.0;
