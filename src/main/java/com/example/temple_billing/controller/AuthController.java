@@ -33,29 +33,6 @@ public class AuthController {
         this.userRepository = userRepository;
     }
 
-//    @PostMapping("/login")
-//    public LoginResponse login(@RequestBody LoginRequest request) {
-//
-//        Authentication authentication =
-//                authenticationManager.authenticate(
-//                        new UsernamePasswordAuthenticationToken(
-//                                request.getUsername(),
-//                                request.getPassword()));
-//
-//        User user = userRepository
-//                .findByUsername(request.getUsername())
-//                .orElseThrow();
-//
-//        String token = jwtService.generateToken(
-//                user.getId(),
-//                user.getUsername(),
-//                user.getRole().name(),
-//                user.getName()
-//        );
-//
-//        return new LoginResponse(token);
-//    }
-
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
