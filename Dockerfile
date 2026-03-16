@@ -9,7 +9,7 @@ COPY . .
 RUN mvn clean package -DskipTests
 
 # Use OpenJDK image to run the application
-FROM openjdk:17-jdk-slim
+#FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
