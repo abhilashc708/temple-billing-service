@@ -39,13 +39,22 @@ public interface ReceiptRepository extends JpaRepository<Receipt, Long>,
 
 
     @Query("""
-            SELECT 
-            COALESCE(SUM(CASE WHEN r.paymentType='CASH' THEN r.totalAmount ELSE 0 END),0),
-            COALESCE(SUM(CASE WHEN r.paymentType='UPI' THEN r.totalAmount ELSE 0 END),0),
-            COUNT(CASE WHEN r.paymentType='CASH' THEN 1 END),
-            COUNT(CASE WHEN r.paymentType='UPI' THEN 1 END)
-            FROM Receipt r
-            WHERE DATE(r.createdDate) = CURRENT_DATE
-            """)
+SELECT 
+COALESCE(SUM(CASE WHEN r.paymentType = 'CASH' THEN r.totalAmount ELSE 0 END),0),
+COALESCE(SUM(CASE WHEN r.paymentType = 'UPI' THEN r.totalAmount ELSE 0 END),0),
+SUM(CASE WHEN r.paymentType = 'CASH' THEN 1 ELSE 0 END),
+SUM(CASE WHEN r.paymentType = 'UPI' THEN 1 ELSE 0 END)
+FROM Receipt r
+WHERE r.createdDate >= CURRENT_DATE
+""")
+//    @Query("""
+//            SELECT
+//            COALESCE(SUM(CASE WHEN r.paymentType='CASH' THEN r.totalAmount ELSE 0 END),0),
+//            COALESCE(SUM(CASE WHEN r.paymentType='UPI' THEN r.totalAmount ELSE 0 END),0),
+//            COUNT(CASE WHEN r.paymentType='CASH' THEN 1 END),
+//            COUNT(CASE WHEN r.paymentType='UPI' THEN 1 END)
+//            FROM Receipt r
+//            WHERE DATE(r.createdDate) = CURRENT_DATE
+//            """)
     Object[] getTodayBookingPaymentSummary();
 }
