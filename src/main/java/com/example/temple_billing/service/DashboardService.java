@@ -50,6 +50,25 @@ public class DashboardService {
             }
         }
 
+        Object[] donationResult = donationRepository.getTodayDonationSummary();
+
+        double donationCash = 0;
+        double donationUpi = 0;
+        long donationCashCount = 0;
+        long donationUpiCount = 0;
+
+        if (donationResult != null && donationResult.length > 0) {
+
+            Object[] row = (Object[]) donationResult[0];
+
+            if (row.length >= 2) {
+                donationCash = row[0] != null ? ((Number) row[0]).doubleValue() : 0;
+                donationUpi = row[1] != null ? ((Number) row[1]).doubleValue() : 0;
+                donationCashCount = row[2] != null ? ((Number) row[2]).longValue() : 0;
+                donationUpiCount = row[3] != null ? ((Number) row[3]).longValue() : 0;
+            }
+        }
+
         LocalDate today = LocalDate.now();
 
         LocalDateTime start = today.atStartOfDay();
@@ -69,6 +88,7 @@ public class DashboardService {
         if (expenseTotal == null) expenseTotal = 0.0;
 
         double bookingTotal = cash + upi + otherIncome;
+        long totalDonationCount = donationCashCount + donationUpiCount;
         long totalCount = cashCount + upiCount;
 
         return new DashboardSummaryDTO(
@@ -80,7 +100,12 @@ public class DashboardService {
                 expenseTotal,
                 cashCount,
                 upiCount,
-                totalCount
+                totalCount,
+                donationCash,
+                donationUpi,
+                donationCashCount,
+                donationUpiCount,
+                totalDonationCount
         );
     }
 }

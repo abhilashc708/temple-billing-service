@@ -29,4 +29,16 @@ FROM Donation d
 WHERE d.createdDate BETWEEN :start AND :end
 """)
 Double getTodayDonationTotal(LocalDateTime start, LocalDateTime end);
+
+
+    @Query("""
+SELECT 
+COALESCE(SUM(CASE WHEN r.paymentType = 'CASH' THEN r.amount ELSE 0 END),0),
+COALESCE(SUM(CASE WHEN r.paymentType = 'UPI' THEN r.amount ELSE 0 END),0),
+SUM(CASE WHEN r.paymentType = 'CASH' THEN 1 ELSE 0 END),
+SUM(CASE WHEN r.paymentType = 'UPI' THEN 1 ELSE 0 END)
+FROM Donation r
+WHERE r.createdDate >= CURRENT_DATE
+""")
+    Object[] getTodayDonationSummary();
 }
