@@ -207,7 +207,9 @@ public class IncomeService {
                 .chequeNo(income.getChequeNo())
                 .chequeDate(income.getChequeDate())
                 .remarks(income.getRemarks())
-                .createdBy(income.getCreatedBy().getUsername())
+                .createdBy(
+                        income.getCreatedBy() != null?
+                                income.getCreatedBy().getUsername() : null)
                 .createdDate(income.getCreatedDate())
                 .modifiedBy(
                         income.getModifiedBy() != null ?
@@ -216,18 +218,29 @@ public class IncomeService {
                 .build();
     }
 
-    public Page<IncomeResponseDTO> incomeReport(IncomeSearchRequest request,
-                                                int page,
-                                                int size) {
+//    public Page<IncomeResponseDTO> incomeReport(IncomeSearchRequest request,
+//                                                int page,
+//                                                int size) {
+//
+//        Pageable pageable = PageRequest.of(page, size,
+//                Sort.by("createdDate").descending());
+//
+//        Specification<Income> spec = IncomeSpecification.search(request);
+//
+//        Page<Income> incomeSearchList =
+//                incomeRepository.findAll(spec, pageable);
+//
+//        return incomeSearchList.map(this::mapToDTO);
+//    }
+public List<IncomeResponseDTO> incomeReport(IncomeSearchRequest request) {
 
-        Pageable pageable = PageRequest.of(page, size,
-                Sort.by("createdDate").descending());
+    Specification<Income> spec = IncomeSpecification.search(request);
 
-        Specification<Income> spec = IncomeSpecification.search(request);
+    List<Income> incomeList =
+            incomeRepository.findAll(spec, Sort.by("createdDate").descending());
 
-        Page<Income> incomeSearchList =
-                incomeRepository.findAll(spec, pageable);
-
-        return incomeSearchList.map(this::mapToDTO);
-    }
+    return incomeList.stream()
+            .map(this::mapToDTO)
+            .toList();
+}
 }

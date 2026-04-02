@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -188,19 +189,16 @@ public class DonationService {
     }
 
 
-    public Page<DonationResponseDTO> donationReport(DonationSearchRequest request,
-                                                    int page,
-                                                    int size) {
-
-        Pageable pageable = PageRequest.of(page, size,
-                Sort.by("createdDate").descending());
+    public List<DonationResponseDTO> donationReport(DonationSearchRequest request) {
 
         Specification<Donation> spec = DonationSpecification.search(request);
 
-        Page<Donation> donationSearchList =
-                donationRepository.findAll(spec, pageable);
+        List<Donation> donationSearchList =
+                donationRepository.findAll(spec, Sort.by("createdDate").descending());
 
-        return donationSearchList.map(this::mapToDTO);
+        return donationSearchList.stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 
     private DonationResponseDTO mapToDTO(Donation donation) {

@@ -81,11 +81,9 @@ public class ExpenseController {
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/report/search")
-    public Page<ExpenseResponseDTO> searchExpenseReport(
-            @RequestBody ExpenseSearchRequest request,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+    public List<ExpenseResponseDTO> searchExpenseReport(
+            @RequestBody ExpenseSearchRequest request) {
 
-        return expenseService.expenseReport(request, page, size);
+        return expenseService.expenseReport(request);
     }
 }

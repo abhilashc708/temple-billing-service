@@ -63,10 +63,13 @@ public class IncomeSpecification {
             List<Predicate> predicates = new ArrayList<>();
 
 
+//            if (request.getIncomeTypes() != null && !request.getIncomeTypes().isEmpty()) {
+//                predicates.add(cb.equal(
+//                        root.get("incomeType"),
+//                        request.getIncomeTypes()));
+//            }
             if (request.getIncomeTypes() != null && !request.getIncomeTypes().isEmpty()) {
-                predicates.add(cb.equal(
-                        root.get("incomeType"),
-                        request.getIncomeTypes()));
+                predicates.add(root.get("incomeType").in(request.getIncomeTypes()));
             }
 
             // Income Date Range

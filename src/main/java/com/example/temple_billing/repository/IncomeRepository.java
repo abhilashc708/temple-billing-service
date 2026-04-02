@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public interface IncomeRepository extends JpaRepository<Income, Long>,
@@ -19,16 +20,21 @@ public interface IncomeRepository extends JpaRepository<Income, Long>,
 
     long countByReceiptDate(LocalDate receiptDate);
 
-//    @Query("""
-//            SELECT COALESCE(SUM(i.amount),0)
-//            FROM Income i
-//            WHERE DATE(i.createdDate)=CURRENT_DATE
-//            """)
-//    Double getTodayIncomeTotal();
 @Query("""
 SELECT COALESCE(SUM(i.amount),0)
 FROM Income i
 WHERE i.createdDate BETWEEN :start AND :end
+AND i.incomeType NOT IN ('Vazhipadu', 'Donation')
 """)
 Double getTodayIncomeTotal(LocalDateTime start, LocalDateTime end);
+
+//    Optional<Income> findByReceiptDateAndModeOfIncome(
+//            LocalDate date,
+//            String modeOfIncome
+//    );
+Optional<Income> findByReceiptDateAndModeOfIncomeAndIncomeType(
+        LocalDate date,
+        String mode,
+        String incomeType
+);
 }

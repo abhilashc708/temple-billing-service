@@ -12,6 +12,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/donations")
@@ -84,11 +85,9 @@ public class DonationController {
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/report/search")
-    public Page<DonationResponseDTO> searchBookings(
-            @RequestBody DonationSearchRequest request,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+    public List<DonationResponseDTO> searchBookings(
+            @RequestBody DonationSearchRequest request) {
 
-        return donationService.donationReport(request, page, size);
+        return donationService.donationReport(request);
     }
 }

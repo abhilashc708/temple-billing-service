@@ -14,6 +14,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -100,12 +101,10 @@ public class BookingController {
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/receipts/report/search")
-    public Page<BookingReportDTO> searchBookings(
-            @RequestBody BookingSearchRequest request,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+    public List<BookingReportDTO> searchBookings(
+            @RequestBody BookingSearchRequest request) {
 
-        return bookingService.searchBookings(request, page, size);
+        return bookingService.searchBookings(request);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")

@@ -4,16 +4,23 @@ package com.example.temple_billing.controller;
 import com.example.temple_billing.dto.IncomeRequestDTO;
 import com.example.temple_billing.dto.IncomeResponseDTO;
 import com.example.temple_billing.dto.IncomeSearchRequest;
+import com.example.temple_billing.dto.LoginResponse;
+import com.example.temple_billing.entity.SyncLog;
+import com.example.temple_billing.repository.SyncLogRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.service.IncomeService;
+import com.example.temple_billing.service.IncomeSyncService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/income")
@@ -21,6 +28,8 @@ import java.util.List;
 public class IncomeController {
 
     private final IncomeService incomeService;
+    private final IncomeSyncService incomeSyncService;
+    private final SyncLogRepository syncLogRepository;
 
     // CREATE
     @PostMapping
@@ -87,11 +96,38 @@ public class IncomeController {
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
     @PostMapping("/report/search")
-    public Page<IncomeResponseDTO> searchIncomes(
-            @RequestBody IncomeSearchRequest request,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
+    public List<IncomeResponseDTO> searchIncomes(
+            @RequestBody IncomeSearchRequest request) {
 
-        return incomeService.incomeReport(request, page, size);
+        return incomeService.incomeReport(request);
     }
+
+@PreAuthorize("hasAnyRole('ADMIN','USER')")
+@PostMapping("/sync-income")
+public ResponseEntity<?> syncIncome() {
+    try {
+        String message = incomeSyncService.syncIncome();
+
+        return ResponseEntity.ok(
+                Map.of("message", message)
+        );
+
+    } catch (Exception e) {
+        return ResponseEntity
+                .status(500)
+                .body(Map.of("message", "Sync failed: " + e.getMessage()));
+    }
+}
+@GetMapping("/last-sync-date")
+public Map<String, Object> getLastSyncDate() {
+
+    LocalDate lastSyncDate = syncLogRepository.findTopByOrderByIdDesc()
+            .map(SyncLog::getLastSyncedDate)
+            .orElse(null);
+
+    Map<String, Object> response = new HashMap<>();
+    response.put("lastSyncDate", lastSyncDate);
+
+    return response;
+}
 }

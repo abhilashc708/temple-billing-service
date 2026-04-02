@@ -218,18 +218,15 @@ public class ExpenseService {
                 .build();
     }
 
-    public Page<ExpenseResponseDTO> expenseReport(ExpenseSearchRequest request,
-                                                  int page,
-                                                  int size) {
-
-        Pageable pageable = PageRequest.of(page, size,
-                Sort.by("createdDate").descending());
+    public List<ExpenseResponseDTO> expenseReport(ExpenseSearchRequest request) {
 
         Specification<Expense> spec = ExpenseSpecification.search(request);
 
-        Page<Expense> expenseSearchList =
-                expenseRepository.findAll(spec, pageable);
+        List<Expense> expenseSearchList =
+                expenseRepository.findAll(spec, Sort.by("createdDate").descending());
 
-        return expenseSearchList.map(this::mapToDTO);
+        return expenseSearchList.stream()
+                .map(this::mapToDTO)
+                .toList();
     }
 }

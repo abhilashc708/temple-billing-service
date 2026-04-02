@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -241,19 +242,32 @@ public class BookingService {
         }
     }
 
-    private String generateReceiptNumber() {
+private String generateReceiptNumber() {
 
-        Optional<Receipt> lastReceipt =
-                receiptRepository.findTopByOrderByIdDesc();
+    String todayDate = LocalDate.now()
+            .format(DateTimeFormatter.ofPattern("yyyyMMdd"));
 
-        if (lastReceipt.isPresent()) {
-            int lastNumber =
-                    Integer.parseInt(lastReceipt.get().getReceiptNumber());
-            return String.format("%06d", lastNumber + 1);
-        }
+    LocalDate today = LocalDate.now();
 
-        return "000001";
+    Optional<Receipt> lastReceiptOpt =
+            receiptRepository.findTopByCreatedDateBetweenOrderByIdDesc(
+                    today.atStartOfDay(),
+                    today.atTime(23, 59, 59)
+            );
+
+    int nextNumber = 1;
+
+    if (lastReceiptOpt.isPresent()) {
+        String lastReceiptNumber = lastReceiptOpt.get().getReceiptNumber();
+
+        String lastCounter =
+                lastReceiptNumber.substring(lastReceiptNumber.length() - 3);
+
+        nextNumber = Integer.parseInt(lastCounter) + 1;
     }
+
+    return "MKT" + todayDate + String.format("%03d", nextNumber);
+}
 
     private PaymentStatus determineReceiptStatus(List<BookingRequestDTO> dtoList) {
 
@@ -309,36 +323,14 @@ public class BookingService {
                 .orElseThrow(() -> new RuntimeException("Receipt not found"));
     }
 
-// Report Page API
-//    public Page<ReceiptResponseDTO> searchBookings(BookingSearchRequest request,
-//                                        int page,
-//                                        int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size,
-//                Sort.by("createdDate").descending());
-//
-//        Specification<Receipt> spec = BookingSpecification.filterBookings(request);
-//
-//        //return receiptRepository.findAll(spec, pageable);
-//
-//        Page<Receipt> recieptsSearchList =
-//                receiptRepository.findAll(spec, pageable);
-//
-//        return recieptsSearchList.map(this::mapReceiptToDTO);
-//    }
 
-    public Page<BookingReportDTO> searchBookings(BookingSearchRequest request,
-                                                 int page,
-                                                 int size) {
-
-        Pageable pageable = PageRequest.of(page, size,
-                Sort.by("createdDate").descending());
+    public List<BookingReportDTO> searchBookings(BookingSearchRequest request) {
 
         Specification<Receipt> spec =
                 BookingSpecification.search(request);
 
-        Page<Receipt> receipts =
-                receiptRepository.findAll(spec, pageable);
+        List<Receipt> receipts =
+                receiptRepository.findAll(spec, Sort.by("createdDate").descending());
 
         List<BookingReportDTO> report = new ArrayList<>();
 
@@ -369,6 +361,6 @@ public class BookingService {
             }
         }
 
-        return new PageImpl<>(report, pageable, report.size());
+        return report;
     }
 }
