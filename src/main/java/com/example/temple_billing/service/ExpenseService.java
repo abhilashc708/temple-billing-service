@@ -3,6 +3,7 @@ package com.example.temple_billing.service;
 import com.example.temple_billing.dto.ExpenseRequestDTO;
 import com.example.temple_billing.dto.ExpenseResponseDTO;
 import com.example.temple_billing.dto.ExpenseSearchRequest;
+import com.example.temple_billing.dto.ExpenseSummaryDTO;
 import com.example.temple_billing.entity.Expense;
 import com.example.temple_billing.entity.User;
 import com.example.temple_billing.repository.ExpenseRepository;
@@ -20,7 +21,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
+import java.time.temporal.WeekFields;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -228,5 +230,66 @@ public class ExpenseService {
         return expenseSearchList.stream()
                 .map(this::mapToDTO)
                 .toList();
+    }
+
+    public List<ExpenseSummaryDTO> getSummaryReport(ExpenseSearchRequest request) {
+
+        Specification<Expense> spec = ExpenseSpecification.search(request);
+
+        List<Expense> list = expenseRepository.findAll(spec);
+
+        Map<String, Map<String, Double>> grouped = new LinkedHashMap<>();
+
+        for (Expense expense : list) {
+
+            String period = getPeriod(expense.getReceiptDate(), request.getRangeType());
+            String type = expense.getExpenseType();
+
+            grouped.putIfAbsent(period, new HashMap<>());
+
+            Map<String, Double> typeMap = grouped.get(period);
+
+            typeMap.put(type,
+                    typeMap.getOrDefault(type, 0.0) + expense.getAmount());
+        }
+
+        List<ExpenseSummaryDTO> result = new ArrayList<>();
+
+        for (String period : grouped.keySet()) {
+
+            for (String type : grouped.get(period).keySet()) {
+
+                result.add(new ExpenseSummaryDTO(
+                        period,
+                        type,
+                        grouped.get(period).get(type)
+                ));
+            }
+        }
+
+        return result;
+    }
+
+    private String getPeriod(LocalDate date, String type) {
+
+        switch (type) {
+
+            case "DAY":
+                return date.toString();
+
+            case "MONTH":
+                return date.getMonth() + " " + date.getYear();
+
+            case "YEAR":
+                return String.valueOf(date.getYear());
+
+            case "WEEK":
+                WeekFields weekFields = WeekFields.of(Locale.getDefault());
+                int week = date.get(weekFields.weekOfWeekBasedYear());
+                return "Week " + week + " - " + date.getYear();
+
+            default:
+                return date.toString();
+        }
     }
 }

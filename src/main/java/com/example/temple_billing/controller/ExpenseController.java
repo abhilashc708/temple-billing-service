@@ -3,6 +3,7 @@ package com.example.temple_billing.controller;
 import com.example.temple_billing.dto.ExpenseRequestDTO;
 import com.example.temple_billing.dto.ExpenseResponseDTO;
 import com.example.temple_billing.dto.ExpenseSearchRequest;
+import com.example.temple_billing.dto.ExpenseSummaryDTO;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
@@ -85,5 +86,13 @@ public class ExpenseController {
             @RequestBody ExpenseSearchRequest request) {
 
         return expenseService.expenseReport(request);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PostMapping("/report/summary")
+    public List<ExpenseSummaryDTO> getExpenseSummaryReport(
+            @RequestBody ExpenseSearchRequest request) {
+
+        return expenseService.getSummaryReport(request);
     }
 }

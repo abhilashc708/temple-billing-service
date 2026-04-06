@@ -1,10 +1,7 @@
 package com.example.temple_billing.controller;
 
 
-import com.example.temple_billing.dto.IncomeRequestDTO;
-import com.example.temple_billing.dto.IncomeResponseDTO;
-import com.example.temple_billing.dto.IncomeSearchRequest;
-import com.example.temple_billing.dto.LoginResponse;
+import com.example.temple_billing.dto.*;
 import com.example.temple_billing.entity.SyncLog;
 import com.example.temple_billing.repository.SyncLogRepository;
 import com.example.temple_billing.security.CustomUserDetails;
@@ -130,4 +127,12 @@ public Map<String, Object> getLastSyncDate() {
 
     return response;
 }
+
+    @PreAuthorize("hasAnyRole('ADMIN','USER')")
+    @PostMapping("/report/summary")
+    public List<IncomeSummaryDTO> getSummaryReport(
+            @RequestBody IncomeSearchRequest request) {
+
+        return incomeService.getSummaryReport(request);
+    }
 }

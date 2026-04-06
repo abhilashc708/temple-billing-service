@@ -11,4 +11,5 @@ public class IncomeSearchRequest {
     private List<String> incomeTypes;
     private LocalDate receiptFrom;
     private LocalDate receiptTo;
+    private String rangeType;
 }
