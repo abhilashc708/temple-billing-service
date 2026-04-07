@@ -11,5 +11,6 @@ public class ExpenseSearchRequest {
 private List<String> expenseTypes;
     private LocalDate receiptFrom;
     private LocalDate receiptTo;
+    private String modeOfExpense;
     private String rangeType;
 }

@@ -72,6 +72,10 @@ public class IncomeSpecification {
                 predicates.add(root.get("incomeType").in(request.getIncomeTypes()));
             }
 
+            if (request.getModeOfIncome() != null && !request.getModeOfIncome().isEmpty()) {
+                predicates.add(root.get("modeOfIncome").in(request.getModeOfIncome()));
+            }
+
             // Income Date Range
             if (request.getReceiptFrom() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(

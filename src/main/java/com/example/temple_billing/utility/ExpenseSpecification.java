@@ -70,6 +70,10 @@ public class ExpenseSpecification {
                 predicates.add(root.get("expenseType").in(request.getExpenseTypes()));
             }
 
+            if (request.getModeOfExpense() != null && !request.getModeOfExpense().isEmpty()) {
+                predicates.add(root.get("modeOfExpense").in(request.getModeOfExpense()));
+            }
+
             // Income Date Range
             if (request.getReceiptFrom() != null) {
                 predicates.add(cb.greaterThanOrEqualTo(
