@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -31,10 +30,10 @@ public class IncomeSyncService {
 
         try {
 
-            // 🔥 always sync today
+            // Sync today
             totalUpdated += syncForDate(today);
 
-            // 🔥 sync missed days
+            // Sync missed days
             LocalDate lastSyncDate = syncLogRepository.findTopByOrderByIdDesc()
                     .map(SyncLog::getLastSyncedDate)
                     .orElse(today.minusDays(7));
@@ -50,7 +49,7 @@ public class IncomeSyncService {
                 }
             }
 
-            // 🔥 update sync log
+            // Update sync log
             if (!today.equals(lastSyncDate)) {
                 SyncLog log = syncLogRepository.findTopByOrderByIdDesc()
                         .orElse(new SyncLog());
@@ -59,7 +58,7 @@ public class IncomeSyncService {
                 syncLogRepository.save(log);
             }
 
-            // 🔥 RETURN MESSAGE
+            // Return message
             if (totalUpdated == 0) {
                 return "Already synced. No changes found";
             } else {
@@ -71,79 +70,28 @@ public class IncomeSyncService {
         }
     }
 
-//private int syncForDate(LocalDate date) {
-//
-//    int updatedCount = 0;
-//
-//    List<Object[]> results = receiptRepository.getDailyCollection(date);
-//
-//    if (results == null || results.isEmpty()) {
-//        return 0;
-//    }
-//
-//    for (Object[] row : results) {
-//
-//        try {
-//            String paymentType = (String) row[0];
-//            Double total = (Double) row[1];
-//
-//            Income existing = incomeRepository
-//                    .findByReceiptDateAndModeOfIncome(date, paymentType)
-//                    .orElse(null);
-//
-//            if (existing != null) {
-//
-//                if (!existing.getAmount().equals(total)) {
-//                    existing.setAmount(total);
-//                    incomeRepository.save(existing);
-//                    updatedCount++;
-//                }
-//
-//            } else {
-//
-//                Income income = Income.builder()
-//                        .receiptNo(generateReceiptNo(date))
-//                        .receiptDate(date)
-//                        .incomeType("Vazhipadu")
-//                        .modeOfIncome(paymentType)
-//                        .amount(total)
-//                        .remarks("Being Vazhipadu Amount Received from Devotees via Counter")
-//                        .createdDate(date.atTime(20, 0))
-//                        .build();
-//
-//                incomeRepository.save(income);
-//                updatedCount++;
-//            }
-//
-//        } catch (Exception e) {
-//            System.err.println("Error processing row: " + e.getMessage());
-//        }
-//    }
-//
-//    return updatedCount;
-//}
-private int syncForDate(LocalDate date) {
+    private int syncForDate(LocalDate date) {
 
-    int updatedCount = 0;
+        int updatedCount = 0;
 
-    // 🔥 1. BOOKING (VAZHIPADU)
-    List<Object[]> bookingResults =
-            receiptRepository.getDailyCollection(date);
+        // Always sync today
+        List<Object[]> bookingResults =
+                receiptRepository.getDailyCollection(date);
 
-    updatedCount += processIncome(bookingResults, date,
-            "Vazhipadu",
-            "Being Vazhipadu Amount Received from Devotees via Counter");
+        updatedCount += processIncome(bookingResults, date,
+                "Vazhipadu",
+                "Being Vazhipadu Amount Received from Devotees via Counter");
 
-    // 🔥 2. DONATION
-    List<Object[]> donationResults =
-            donationRepository.getDailyDonation(date);
+        // Sync donations
+        List<Object[]> donationResults =
+                donationRepository.getDailyDonation(date);
 
-    updatedCount += processIncome(donationResults, date,
-            "Donation",
-            "Being Donation Amount Received from Devotees via Counter");
+        updatedCount += processIncome(donationResults, date,
+                "Donation",
+                "Being Donation Amount Received from Devotees via Counter");
 
-    return updatedCount;
-}
+        return updatedCount;
+    }
 
     private int processIncome(List<Object[]> results,
                               LocalDate date,
@@ -180,10 +128,10 @@ private int syncForDate(LocalDate date) {
                     Income income = Income.builder()
                             .receiptNo(generateReceiptNo(date))
                             .receiptDate(date)
-                            .incomeType(incomeType) // 🔥 dynamic
+                            .incomeType(incomeType)
                             .modeOfIncome(paymentType)
                             .amount(total)
-                            .remarks(remarks) // 🔥 dynamic
+                            .remarks(remarks)
                             .createdDate(date.atTime(20, 0))
                             .build();
 
@@ -196,7 +144,7 @@ private int syncForDate(LocalDate date) {
             }
         }
 
-        return updatedCount;
+         return updatedCount;
     }
 
 

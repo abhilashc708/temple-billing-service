@@ -10,6 +10,8 @@ import com.example.temple_billing.repository.DonationRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.utility.DonationSpecification;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DonationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(DonationService.class);
+
     private final DonationRepository donationRepository;
 
     // =========================
@@ -35,6 +39,7 @@ public class DonationService {
     public DonationResponseDTO create(
             DonationRequestDTO dto,
             CustomUserDetails userDetails) {
+        logger.info("Creating donation for user: {}", userDetails.getUsername());
 
         Donation donation = Donation.builder()
                 .donationDate(dto.getDonationDate())

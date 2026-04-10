@@ -19,12 +19,6 @@ public interface DonationRepository
 
     Page<Donation> findByCreatedBy_Id(Long userId, Pageable pageable);
 
-//    @Query("""
-//            SELECT COALESCE(SUM(d.amount),0)
-//            FROM Donation d
-//            WHERE DATE(d.createdDate)=CURRENT_DATE
-//            """)
-//    Double getTodayDonationTotal();
 @Query("""
 SELECT COALESCE(SUM(d.amount),0)
 FROM Donation d

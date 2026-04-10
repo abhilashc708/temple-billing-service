@@ -1,0 +1,593 @@
+2026-04-09 22:22:39 [main] INFO  c.e.t.TempleBillingApplication - Starting TempleBillingApplication using Java 21.0.5 with PID 12093 (/Users/abhilashc/Documents/Works/temple-billing/target/classes started by abhilashc in /Users/abhilashc/Documents/Works/temple-billing)
+2026-04-09 22:22:39 [main] DEBUG c.e.t.TempleBillingApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-04-09 22:22:39 [main] INFO  c.e.t.TempleBillingApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-09 22:22:39 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-09 22:22:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-09 22:22:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 11 JPA repository interfaces.
+2026-04-09 22:22:40 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-09 22:22:40 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-09 22:22:40 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-09 22:22:40 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-04-09 22:22:40 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 754 ms
+2026-04-09 22:22:40 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-09 22:22:40 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-04-09 22:22:40 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-09 22:22:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-09 22:22:40 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@13ddaffb
+2026-04-09 22:22:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-09 22:22:40 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-09 22:22:40 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/temple_billing]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.1
+	Default catalog/schema: temple_billing/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-09 22:22:41 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-09 22:22:41 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-09 22:22:41 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-09 22:22:41 [main] DEBUG c.e.t.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-09 22:22:41 [main] DEBUG c.e.t.config.SecurityConfig - SecurityConfig initialized with JwtAuthenticationFilter
+2026-04-09 22:22:41 [main] DEBUG c.e.t.config.SecurityConfig - AuthenticationManager bean created
+2026-04-09 22:22:41 [main] DEBUG c.e.t.config.SecurityConfig - BCryptPasswordEncoder bean created
+2026-04-09 22:22:41 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-09 22:22:42 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-09 22:22:42 [main] INFO  c.e.t.config.SecurityConfig - Configuring SecurityFilterChain
+2026-04-09 22:22:42 [main] INFO  c.e.t.config.SecurityConfig - SecurityFilterChain configured successfully - CSRF disabled, JWT filter added, STATELESS session management enabled
+2026-04-09 22:22:42 [main] DEBUG c.e.t.config.SecurityConfig - Configuring CORS settings
+2026-04-09 22:22:42 [main] INFO  c.e.t.config.SecurityConfig - CORS configuration applied - Allowed origins: http://localhost:4200, https://mankurussi-temple-billing-app.netlify.app
+2026-04-09 22:22:42 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-09 22:22:42 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-09 22:22:42 [main] INFO  c.e.t.TempleBillingApplication - Started TempleBillingApplication in 3.478 seconds (process running for 3.778)
+2026-04-09 22:22:48 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-09 22:22:48 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-09 22:22:48 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-1] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:22:48 [http-nio-8080-exec-1] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:48 [http-nio-8080-exec-1] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-1] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-1] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-3] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:22:48 [http-nio-8080-exec-3] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:48 [http-nio-8080-exec-3] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-3] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-3] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:22:48 [http-nio-8080-exec-4] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:48 [http-nio-8080-exec-4] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-4] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:22:48 [http-nio-8080-exec-4] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-5] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:22:49 [http-nio-8080-exec-5] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:49 [http-nio-8080-exec-5] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:22:49 [http-nio-8080-exec-5] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:22:49 [http-nio-8080-exec-5] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-6] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:22:49 [http-nio-8080-exec-6] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:22:49 [http-nio-8080-exec-6] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:22:49 [http-nio-8080-exec-6] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:22:49 [http-nio-8080-exec-6] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:22:52 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings
+2026-04-09 22:22:52 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:52 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:52 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:52 [http-nio-8080-exec-8] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:52 [http-nio-8080-exec-8] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:52 [http-nio-8080-exec-8] DEBUG c.e.t.controller.OfferingController - Fetching all offerings - page: 0, size: 10, sortBy: createdDate
+2026-04-09 22:22:52 [http-nio-8080-exec-8] DEBUG c.e.t.service.OfferingService - Fetching all offerings - page: 0, size: 10, sortBy: createdDate
+2026-04-09 22:22:52 [http-nio-8080-exec-8] INFO  c.e.t.service.OfferingService - Retrieved 5 offerings
+2026-04-09 22:22:52 [http-nio-8080-exec-8] INFO  c.e.t.controller.OfferingController - Retrieved 5 offerings
+2026-04-09 22:22:52 [http-nio-8080-exec-8] WARN  o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-04-09 22:22:53 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/events
+2026-04-09 22:22:53 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:22:53 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:22:53 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:22:53 [http-nio-8080-exec-10] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:22:53 [http-nio-8080-exec-10] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:22:53 [http-nio-8080-exec-10] DEBUG c.e.t.controller.EventController - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:22:53 [http-nio-8080-exec-10] DEBUG c.e.t.service.EventService - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:22:53 [http-nio-8080-exec-10] INFO  c.e.t.service.EventService - Retrieved 1 events
+2026-04-09 22:22:53 [http-nio-8080-exec-10] INFO  c.e.t.controller.EventController - Retrieved 1 events
+2026-04-09 22:23:30 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:23:30 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:23:30 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:23:30 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:23:30 [http-nio-8080-exec-1] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:23:30 [http-nio-8080-exec-1] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:23:30 [http-nio-8080-exec-1] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:23:30 [http-nio-8080-exec-1] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:23:30 [http-nio-8080-exec-1] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:23:30 [http-nio-8080-exec-1] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:23:31 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: POST /api/bookings/receipts/report/search
+2026-04-09 22:23:31 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:23:31 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:23:31 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:23:31 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:23:31 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:23:31 [http-nio-8080-exec-4] DEBUG c.e.t.controller.BookingController - Generating booking report
+2026-04-09 22:24:12 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-09 22:24:12 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-09 22:24:12 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-09 22:24:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-09 22:24:12 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-09 22:39:20 [main] INFO  c.e.t.TempleBillingApplication - Starting TempleBillingApplication using Java 21.0.5 with PID 12832 (/Users/abhilashc/Documents/Works/temple-billing/target/classes started by abhilashc in /Users/abhilashc/Documents/Works/temple-billing)
+2026-04-09 22:39:20 [main] DEBUG c.e.t.TempleBillingApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-04-09 22:39:20 [main] INFO  c.e.t.TempleBillingApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-09 22:39:20 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-09 22:39:21 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-09 22:39:21 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 11 JPA repository interfaces.
+2026-04-09 22:39:21 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-09 22:39:21 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-09 22:39:21 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-09 22:39:21 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-04-09 22:39:21 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 701 ms
+2026-04-09 22:39:21 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-09 22:39:21 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-04-09 22:39:21 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-09 22:39:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-09 22:39:21 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2c978637
+2026-04-09 22:39:21 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-09 22:39:21 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-09 22:39:21 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/temple_billing]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.1
+	Default catalog/schema: temple_billing/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-09 22:39:22 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-09 22:39:22 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-09 22:39:22 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-09 22:39:22 [main] DEBUG c.e.t.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-09 22:39:22 [main] DEBUG c.e.t.config.SecurityConfig - SecurityConfig initialized with JwtAuthenticationFilter
+2026-04-09 22:39:22 [main] DEBUG c.e.t.config.SecurityConfig - AuthenticationManager bean created
+2026-04-09 22:39:22 [main] DEBUG c.e.t.config.SecurityConfig - BCryptPasswordEncoder bean created
+2026-04-09 22:39:22 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-09 22:39:23 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-09 22:39:23 [main] INFO  c.e.t.config.SecurityConfig - Configuring SecurityFilterChain
+2026-04-09 22:39:23 [main] INFO  c.e.t.config.SecurityConfig - SecurityFilterChain configured successfully - CSRF disabled, JWT filter added, STATELESS session management enabled
+2026-04-09 22:39:23 [main] DEBUG c.e.t.config.SecurityConfig - Configuring CORS settings
+2026-04-09 22:39:23 [main] INFO  c.e.t.config.SecurityConfig - CORS configuration applied - Allowed origins: http://localhost:4200, https://mankurussi-temple-billing-app.netlify.app
+2026-04-09 22:39:24 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-09 22:39:24 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-09 22:39:24 [main] INFO  c.e.t.TempleBillingApplication - Started TempleBillingApplication in 3.666 seconds (process running for 3.945)
+2026-04-09 22:39:31 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-09 22:39:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-09 22:39:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-04-09 22:39:31 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:39:31 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:31 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:31 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:31 [http-nio-8080-exec-2] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:31 [http-nio-8080-exec-2] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:31 [http-nio-8080-exec-2] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:39:31 [http-nio-8080-exec-2] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:39:31 [http-nio-8080-exec-2] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:39:31 [http-nio-8080-exec-2] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:39:31 [http-nio-8080-exec-2] WARN  o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-04-09 22:39:32 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:39:32 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:32 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:32 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:32 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:32 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:32 [http-nio-8080-exec-4] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:39:32 [http-nio-8080-exec-4] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:39:32 [http-nio-8080-exec-4] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:39:32 [http-nio-8080-exec-4] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:41 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:41 [http-nio-8080-exec-5] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:39:41 [http-nio-8080-exec-5] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:39:41 [http-nio-8080-exec-5] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:39:41 [http-nio-8080-exec-5] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:39:41 [http-nio-8080-exec-5] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:39:43 [http-nio-8080-exec-7] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings
+2026-04-09 22:39:43 [http-nio-8080-exec-7] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:43 [http-nio-8080-exec-7] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:43 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:43 [http-nio-8080-exec-7] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:43 [http-nio-8080-exec-7] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:43 [http-nio-8080-exec-7] DEBUG c.e.t.controller.OfferingController - Fetching all offerings - page: 0, size: 10, sortBy: createdDate
+2026-04-09 22:39:43 [http-nio-8080-exec-7] DEBUG c.e.t.service.OfferingService - Fetching all offerings - page: 0, size: 10, sortBy: createdDate
+2026-04-09 22:39:43 [http-nio-8080-exec-7] INFO  c.e.t.service.OfferingService - Retrieved 5 offerings
+2026-04-09 22:39:43 [http-nio-8080-exec-7] INFO  c.e.t.controller.OfferingController - Retrieved 5 offerings
+2026-04-09 22:39:45 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/events
+2026-04-09 22:39:45 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:45 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:45 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:45 [http-nio-8080-exec-9] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:45 [http-nio-8080-exec-9] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:45 [http-nio-8080-exec-9] DEBUG c.e.t.controller.EventController - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:39:45 [http-nio-8080-exec-9] DEBUG c.e.t.service.EventService - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:39:45 [http-nio-8080-exec-9] INFO  c.e.t.service.EventService - Retrieved 1 events
+2026-04-09 22:39:45 [http-nio-8080-exec-9] INFO  c.e.t.controller.EventController - Retrieved 1 events
+2026-04-09 22:39:48 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/bookings/receipts
+2026-04-09 22:39:48 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:48 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:39:48 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:48 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-2] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-2] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:48 [http-nio-8080-exec-4] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:39:48 [http-nio-8080-exec-4] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:39:48 [http-nio-8080-exec-2] DEBUG c.e.t.controller.BookingController - Fetching receipts for user: admin - Page: 0, Size: 8
+2026-04-09 22:39:48 [http-nio-8080-exec-4] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:39:48 [http-nio-8080-exec-4] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:39:51 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/bookings/receipts/41/download
+2026-04-09 22:39:51 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:39:51 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:39:51 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:39:51 [http-nio-8080-exec-5] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:39:51 [http-nio-8080-exec-5] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:39:51 [http-nio-8080-exec-5] INFO  c.e.t.controller.BookingController - Downloading receipt PDF - ID: 41
+2026-04-09 22:39:51 [http-nio-8080-exec-5] INFO  c.e.t.service.ReceiptPdfService - Generating PDF receipt for receipt number: MKT20260402001
+2026-04-09 22:39:51 [http-nio-8080-exec-5] DEBUG c.e.t.service.ReceiptPdfService - PDF document opened for receipt: MKT20260402001
+2026-04-09 22:39:51 [http-nio-8080-exec-5] DEBUG c.e.t.service.ReceiptPdfService - Adding 1 bookings to PDF receipt
+2026-04-09 22:39:51 [http-nio-8080-exec-5] INFO  c.e.t.service.ReceiptPdfService - PDF receipt generated successfully for receipt number: MKT20260402001 - size: 12609 bytes
+2026-04-09 22:39:51 [http-nio-8080-exec-5] INFO  c.e.t.controller.BookingController - Receipt PDF generated successfully for ID: 41
+2026-04-09 22:41:15 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/finance-master
+2026-04-09 22:41:15 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:15 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:15 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:15 [http-nio-8080-exec-9] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:15 [http-nio-8080-exec-9] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:15 [http-nio-8080-exec-9] DEBUG c.e.t.c.FinanceMasterController - Fetching finance master records - type: null, page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:15 [http-nio-8080-exec-9] DEBUG c.e.t.service.FinanceMasterService - Fetching finance master records - type: null, page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:15 [http-nio-8080-exec-9] INFO  c.e.t.service.FinanceMasterService - Retrieved 9 finance master records
+2026-04-09 22:41:15 [http-nio-8080-exec-9] INFO  c.e.t.c.FinanceMasterController - Retrieved 9 finance master records
+2026-04-09 22:41:17 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/income/last-sync-date
+2026-04-09 22:41:17 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/finance-master
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/income
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:17 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-3] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-3] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-5] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-2] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:17 [http-nio-8080-exec-3] DEBUG c.e.t.controller.IncomeController - Retrieving last sync date
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.controller.IncomeController - Fetching income records - page: 0, size: 8
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.c.FinanceMasterController - Fetching finance master records - type: INCOME, page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.service.FinanceMasterService - Fetching finance master records - type: INCOME, page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.service.IncomeService - Fetching income records for user: admin - page: 0, size: 8
+2026-04-09 22:41:17 [http-nio-8080-exec-2] DEBUG c.e.t.service.FinanceMasterService - Filtering by transaction type: INCOME
+2026-04-09 22:41:17 [http-nio-8080-exec-5] DEBUG c.e.t.service.IncomeService - Admin user - fetching all income records
+2026-04-09 22:41:17 [http-nio-8080-exec-3] DEBUG c.e.t.controller.IncomeController - Last sync date: 2026-04-02
+2026-04-09 22:41:17 [http-nio-8080-exec-2] INFO  c.e.t.service.FinanceMasterService - Retrieved 6 finance master records
+2026-04-09 22:41:17 [http-nio-8080-exec-2] INFO  c.e.t.c.FinanceMasterController - Retrieved 6 finance master records
+2026-04-09 22:41:17 [http-nio-8080-exec-5] INFO  c.e.t.service.IncomeService - Retrieved 17 income records
+2026-04-09 22:41:17 [http-nio-8080-exec-5] INFO  c.e.t.controller.IncomeController - Retrieved 17 income records
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/expense
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/finance-master
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-9] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-8] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.c.FinanceMasterController - Fetching finance master records - type: EXPENSE, page: 0, size: 5, sortBy: createdDate
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.service.FinanceMasterService - Fetching finance master records - type: EXPENSE, page: 0, size: 5, sortBy: createdDate
+2026-04-09 22:41:18 [http-nio-8080-exec-9] DEBUG c.e.t.service.FinanceMasterService - Filtering by transaction type: EXPENSE
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.controller.ExpenseController - Fetching expenses - page: 0, size: 5
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.service.ExpenseService - Fetching expenses for user: admin - page: 0, size: 5
+2026-04-09 22:41:18 [http-nio-8080-exec-8] DEBUG c.e.t.service.ExpenseService - Admin user - fetching all expenses
+2026-04-09 22:41:18 [http-nio-8080-exec-9] INFO  c.e.t.service.FinanceMasterService - Retrieved 3 finance master records
+2026-04-09 22:41:18 [http-nio-8080-exec-9] INFO  c.e.t.c.FinanceMasterController - Retrieved 3 finance master records
+2026-04-09 22:41:18 [http-nio-8080-exec-8] INFO  c.e.t.service.ExpenseService - Retrieved 3 expenses
+2026-04-09 22:41:18 [http-nio-8080-exec-8] INFO  c.e.t.controller.ExpenseController - Retrieved 3 expenses
+2026-04-09 22:41:20 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/income/last-sync-date
+2026-04-09 22:41:20 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/income
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/finance-master
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-10] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.controller.IncomeController - Fetching income records - page: 0, size: 8
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.service.IncomeService - Fetching income records for user: admin - page: 0, size: 8
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-10] DEBUG c.e.t.service.IncomeService - Admin user - fetching all income records
+2026-04-09 22:41:20 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-1] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-4] DEBUG c.e.t.controller.IncomeController - Retrieving last sync date
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.c.FinanceMasterController - Fetching finance master records - type: INCOME, page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.service.FinanceMasterService - Fetching finance master records - type: INCOME, page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:20 [http-nio-8080-exec-1] DEBUG c.e.t.service.FinanceMasterService - Filtering by transaction type: INCOME
+2026-04-09 22:41:20 [http-nio-8080-exec-4] DEBUG c.e.t.controller.IncomeController - Last sync date: 2026-04-02
+2026-04-09 22:41:20 [http-nio-8080-exec-1] INFO  c.e.t.service.FinanceMasterService - Retrieved 6 finance master records
+2026-04-09 22:41:20 [http-nio-8080-exec-1] INFO  c.e.t.c.FinanceMasterController - Retrieved 6 finance master records
+2026-04-09 22:41:20 [http-nio-8080-exec-10] INFO  c.e.t.service.IncomeService - Retrieved 17 income records
+2026-04-09 22:41:20 [http-nio-8080-exec-10] INFO  c.e.t.controller.IncomeController - Retrieved 17 income records
+2026-04-09 22:41:20 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: POST /api/income/sync-income
+2026-04-09 22:41:20 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:20 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-3] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-3] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-3] INFO  c.e.t.controller.IncomeController - Initiating income sync
+2026-04-09 22:41:20 [http-nio-8080-exec-3] INFO  c.e.t.controller.IncomeController - Income sync completed successfully: Already synced. No changes found
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/income
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-5] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.controller.IncomeController - Fetching income records - page: 0, size: 8
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.service.IncomeService - Fetching income records for user: admin - page: 0, size: 8
+2026-04-09 22:41:20 [http-nio-8080-exec-5] DEBUG c.e.t.service.IncomeService - Admin user - fetching all income records
+2026-04-09 22:41:20 [http-nio-8080-exec-5] INFO  c.e.t.service.IncomeService - Retrieved 17 income records
+2026-04-09 22:41:20 [http-nio-8080-exec-5] INFO  c.e.t.controller.IncomeController - Retrieved 17 income records
+2026-04-09 22:41:23 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/events
+2026-04-09 22:41:23 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/donations
+2026-04-09 22:41:23 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:23 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:41:23 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-8] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-9] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-8] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-9] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:41:23 [http-nio-8080-exec-8] DEBUG c.e.t.controller.EventController - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:23 [http-nio-8080-exec-9] DEBUG c.e.t.controller.DonationController - Fetching donations - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:23 [http-nio-8080-exec-8] DEBUG c.e.t.service.EventService - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:41:23 [http-nio-8080-exec-8] INFO  c.e.t.service.EventService - Retrieved 1 events
+2026-04-09 22:41:23 [http-nio-8080-exec-8] INFO  c.e.t.controller.EventController - Retrieved 1 events
+2026-04-09 22:41:23 [http-nio-8080-exec-9] INFO  c.e.t.controller.DonationController - Retrieved 10 donations
+2026-04-09 22:41:54 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-09 22:41:54 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-09 22:41:54 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-09 22:41:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-09 22:41:54 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-04-09 22:45:41 [main] INFO  c.e.t.TempleBillingApplication - Starting TempleBillingApplication using Java 21.0.5 with PID 12914 (/Users/abhilashc/Documents/Works/temple-billing/target/classes started by abhilashc in /Users/abhilashc/Documents/Works/temple-billing)
+2026-04-09 22:45:41 [main] DEBUG c.e.t.TempleBillingApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-04-09 22:45:41 [main] INFO  c.e.t.TempleBillingApplication - No active profile set, falling back to 1 default profile: "default"
+2026-04-09 22:45:42 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-04-09 22:45:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-04-09 22:45:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 11 JPA repository interfaces.
+2026-04-09 22:45:42 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-04-09 22:45:42 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-04-09 22:45:42 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-04-09 22:45:42 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-04-09 22:45:42 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 763 ms
+2026-04-09 22:45:42 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-04-09 22:45:42 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-04-09 22:45:43 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-04-09 22:45:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-04-09 22:45:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@482942d8
+2026-04-09 22:45:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-04-09 22:45:43 [main] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-04-09 22:45:43 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/temple_billing]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 9.1
+	Default catalog/schema: temple_billing/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-04-09 22:45:43 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-04-09 22:45:43 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-04-09 22:45:44 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-04-09 22:45:44 [main] DEBUG c.e.t.config.JwtAuthenticationFilter - Filter 'jwtAuthenticationFilter' configured for use
+2026-04-09 22:45:44 [main] DEBUG c.e.t.config.SecurityConfig - SecurityConfig initialized with JwtAuthenticationFilter
+2026-04-09 22:45:44 [main] DEBUG c.e.t.config.SecurityConfig - AuthenticationManager bean created
+2026-04-09 22:45:44 [main] DEBUG c.e.t.config.SecurityConfig - BCryptPasswordEncoder bean created
+2026-04-09 22:45:44 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-04-09 22:45:44 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-04-09 22:45:45 [main] INFO  c.e.t.config.SecurityConfig - Configuring SecurityFilterChain
+2026-04-09 22:45:45 [main] INFO  c.e.t.config.SecurityConfig - SecurityFilterChain configured successfully - CSRF disabled, JWT filter added, STATELESS session management enabled
+2026-04-09 22:45:45 [main] DEBUG c.e.t.config.SecurityConfig - Configuring CORS settings
+2026-04-09 22:45:45 [main] INFO  c.e.t.config.SecurityConfig - CORS configuration applied - Allowed origins: http://localhost:4200, https://mankurussi-temple-billing-app.netlify.app
+2026-04-09 22:45:45 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-04-09 22:45:45 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-04-09 22:45:45 [main] INFO  c.e.t.TempleBillingApplication - Started TempleBillingApplication in 3.648 seconds (process running for 3.908)
+2026-04-09 22:50:27 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-09 22:50:27 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-04-09 22:50:27 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-04-09 22:50:27 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Skipping JWT filter for login endpoint: /api/auth/login
+2026-04-09 22:50:27 [http-nio-8080-exec-2] INFO  c.e.t.controller.AuthController - Login attempt for username: admin
+2026-04-09 22:50:27 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:50:27 [http-nio-8080-exec-2] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-2] INFO  c.e.temple_billing.config.JwtService - Generating JWT token for user: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-2] INFO  c.e.t.controller.AuthController - Login successful for username: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/dashboard/today
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.controller.DashboardController - Fetching today's dashboard summary
+2026-04-09 22:50:28 [http-nio-8080-exec-4] INFO  c.e.t.service.DashboardService - Generating today's dashboard summary
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.service.DashboardService - Today's booking payments - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.service.DashboardService - Today's donations - Cash: Rs.0.0 (Count: 0), UPI: Rs.0.0 (Count: 0)
+2026-04-09 22:50:28 [http-nio-8080-exec-4] DEBUG c.e.t.service.DashboardService - Today's summary - Other Income: Rs.0.0, Donation Total: Rs.0.0, Expense Total: Rs.0.0
+2026-04-09 22:50:28 [http-nio-8080-exec-4] INFO  c.e.t.service.DashboardService - Dashboard summary generated - Total Income: Rs.0.0, Total Expenses: Rs.0.0, Total Donations: Rs.0.0
+2026-04-09 22:50:28 [http-nio-8080-exec-4] INFO  c.e.t.controller.DashboardController - Dashboard summary retrieved - Total Income: Rs.0.0
+2026-04-09 22:50:30 [http-nio-8080-exec-7] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/bookings/receipts
+2026-04-09 22:50:30 [http-nio-8080-exec-7] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:50:30 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:50:30 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:50:30 [http-nio-8080-exec-7] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-7] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-8] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-8] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-7] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-7] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-8] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-8] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:50:30 [http-nio-8080-exec-8] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:50:30 [http-nio-8080-exec-7] DEBUG c.e.t.controller.BookingController - Fetching receipts for user: admin - Page: 0, Size: 8
+2026-04-09 22:50:30 [http-nio-8080-exec-8] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:50:30 [http-nio-8080-exec-8] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:50:30 [http-nio-8080-exec-8] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:50:30 [http-nio-8080-exec-8] WARN  o.s.d.w.c.SpringDataJackson3Configuration$PageModule$WarningLoggingModifier - Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
+2026-04-09 22:52:05 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/bookings/receipts
+2026-04-09 22:52:05 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:52:05 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:52:05 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:52:05 [http-nio-8080-exec-3] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-3] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-4] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-4] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-3] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-4] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-3] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-4] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:52:05 [http-nio-8080-exec-4] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:52:05 [http-nio-8080-exec-4] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:52:05 [http-nio-8080-exec-3] DEBUG c.e.t.controller.BookingController - Fetching receipts for user: admin - Page: 0, Size: 8
+2026-04-09 22:52:05 [http-nio-8080-exec-4] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:52:05 [http-nio-8080-exec-4] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:54:33 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/offerings/getAllByStatus
+2026-04-09 22:54:33 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:54:33 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/bookings/receipts
+2026-04-09 22:54:33 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:54:33 [http-nio-8080-exec-9] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-9] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-10] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-10] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-9] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-10] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-10] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-9] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:54:33 [http-nio-8080-exec-10] DEBUG c.e.t.controller.BookingController - Fetching receipts for user: admin - Page: 0, Size: 8
+2026-04-09 22:54:33 [http-nio-8080-exec-9] DEBUG c.e.t.controller.OfferingController - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:54:33 [http-nio-8080-exec-9] DEBUG c.e.t.service.OfferingService - Fetching active offerings - page: 0, size: 100, sortBy: createdDate
+2026-04-09 22:54:33 [http-nio-8080-exec-9] INFO  c.e.t.service.OfferingService - Retrieved 4 active offerings
+2026-04-09 22:54:33 [http-nio-8080-exec-9] INFO  c.e.t.controller.OfferingController - Retrieved 4 active offerings
+2026-04-09 22:55:47 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/donations
+2026-04-09 22:55:47 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:55:47 [http-nio-8080-exec-6] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/events
+2026-04-09 22:55:47 [http-nio-8080-exec-6] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:55:47 [http-nio-8080-exec-5] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-5] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-6] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-6] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-5] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-6] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-6] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-5] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:55:47 [http-nio-8080-exec-5] DEBUG c.e.t.controller.DonationController - Fetching donations - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:55:47 [http-nio-8080-exec-6] DEBUG c.e.t.controller.EventController - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:55:47 [http-nio-8080-exec-6] DEBUG c.e.t.service.EventService - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:55:47 [http-nio-8080-exec-6] INFO  c.e.t.service.EventService - Retrieved 1 events
+2026-04-09 22:55:47 [http-nio-8080-exec-6] INFO  c.e.t.controller.EventController - Retrieved 1 events
+2026-04-09 22:55:47 [http-nio-8080-exec-5] INFO  c.e.t.controller.DonationController - Retrieved 10 donations
+2026-04-09 22:58:41 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/donations
+2026-04-09 22:58:41 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Processing request: GET /api/events
+2026-04-09 22:58:41 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:58:41 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - JWT token extracted from Authorization header
+2026-04-09 22:58:41 [http-nio-8080-exec-2] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-2] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-1] DEBUG c.e.t.config.JwtAuthenticationFilter - Token validated for user: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-1] INFO  c.e.t.s.CustomUserDetailsService - Loading user details for username: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-2] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-2] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-1] DEBUG c.e.t.s.CustomUserDetailsService - User details loaded successfully for: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-1] INFO  c.e.t.config.JwtAuthenticationFilter - Authentication successful for user: admin
+2026-04-09 22:58:41 [http-nio-8080-exec-2] DEBUG c.e.t.controller.EventController - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:58:41 [http-nio-8080-exec-1] DEBUG c.e.t.controller.DonationController - Fetching donations - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:58:41 [http-nio-8080-exec-2] DEBUG c.e.t.service.EventService - Fetching events - page: 0, size: 8, sortBy: createdDate
+2026-04-09 22:58:41 [http-nio-8080-exec-2] INFO  c.e.t.service.EventService - Retrieved 1 events
+2026-04-09 22:58:41 [http-nio-8080-exec-2] INFO  c.e.t.controller.EventController - Retrieved 1 events
+2026-04-09 22:58:41 [http-nio-8080-exec-1] INFO  c.e.t.controller.DonationController - Retrieved 10 donations
+2026-04-09 22:59:34 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-09 22:59:34 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-04-09 22:59:34 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-04-09 22:59:34 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-04-09 22:59:34 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

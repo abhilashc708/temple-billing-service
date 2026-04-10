@@ -10,6 +10,8 @@ import com.example.temple_billing.repository.ReceiptRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.utility.BookingSpecification;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ import java.util.Optional;
 
 @Service
 public class BookingService {
+
+    private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
     private final BookingRepository bookingRepository;
     private final ReceiptRepository receiptRepository;
@@ -39,49 +43,61 @@ public class BookingService {
     public ReceiptResponseDTO createBatch(
             ReceiptCreateRequestDTO request,
             CustomUserDetails userDetails) {
+        logger.info("Creating batch receipt with {} bookings by user: {}", request.getBookings().size(), userDetails.getUsername());
 
-        // 🔥 Calculate total
-        double totalAmount = request.getBookings()
-                .stream()
-                .mapToDouble(c -> c.getAmount() * c.getQuantity())
-                .sum();
+        try {
+            // 🔥 Calculate total
+            double totalAmount = request.getBookings()
+                    .stream()
+                    .mapToDouble(c -> c.getAmount() * c.getQuantity())
+                    .sum();
 
-        // 🔥 Create Receipt first
-        Receipt receipt = Receipt.builder()
-                .receiptNumber(generateReceiptNumber())
-                .createdDate(LocalDateTime.now())
-                .paymentType(request.getPaymentType())
-                .paymentStatus(PaymentStatus.valueOf(request.getPaymentStatus()))
-                .phoneNumber(request.getPhoneNumber())
-                .totalAmount(totalAmount)
-                .user(User.builder().id(userDetails.getUserId()).build())
-                .build();
+            logger.debug("Total amount calculated: {}", totalAmount);
 
-        receiptRepository.save(receipt);
-
-        // 🔥 Save bookings
-        List<Booking> bookingList = new ArrayList<>();
-
-        for (BookingRequestDTO dto : request.getBookings()) {
-            Booking booking = Booking.builder()
-                    .bookingDate(dto.getBookingDate())
-                    .vazhipadu(dto.getVazhipadu())
-                    .quantity(dto.getQuantity())
-                    .amount(dto.getAmount())
-                    .devoteeName(dto.getDevoteeName())
-                    .birthStar(dto.getBirthStar())
+            // 🔥 Create Receipt first
+            Receipt receipt = Receipt.builder()
+                    .receiptNumber(generateReceiptNumber())
                     .createdDate(LocalDateTime.now())
-                    .receipt(receipt)
+                    .paymentType(request.getPaymentType())
+                    .paymentStatus(PaymentStatus.valueOf(request.getPaymentStatus()))
+                    .phoneNumber(request.getPhoneNumber())
+                    .totalAmount(totalAmount)
+                    .user(User.builder().id(userDetails.getUserId()).build())
                     .build();
 
-            bookingList.add(booking);
+            receiptRepository.save(receipt);
+
+            logger.info("Receipt created with ID: {}", receipt.getId());
+
+            // 🔥 Save bookings
+            List<Booking> bookingList = new ArrayList<>();
+
+            for (BookingRequestDTO dto : request.getBookings()) {
+                Booking booking = Booking.builder()
+                        .bookingDate(dto.getBookingDate())
+                        .vazhipadu(dto.getVazhipadu())
+                        .quantity(dto.getQuantity())
+                        .amount(dto.getAmount())
+                        .devoteeName(dto.getDevoteeName())
+                        .birthStar(dto.getBirthStar())
+                        .createdDate(LocalDateTime.now())
+                        .receipt(receipt)
+                        .build();
+
+                bookingList.add(booking);
+            }
+
+            bookingRepository.saveAll(bookingList);
+
+            logger.info("{} bookings saved for receipt ID: {}", bookingList.size(), receipt.getId());
+
+            receipt.setBookings(bookingList);
+
+            return mapReceiptToDTO(receipt);
+        } catch (Exception e) {
+            logger.error("Error creating batch receipt: {}", e.getMessage(), e);
+            throw e;
         }
-
-        bookingRepository.saveAll(bookingList);
-
-        receipt.setBookings(bookingList);
-
-        return mapReceiptToDTO(receipt);
     }
 
     // =============================
@@ -103,6 +119,8 @@ public class BookingService {
         receipt.setPhoneNumber(dto.getPhoneNumber());
 
         receiptRepository.save(receipt);
+
+        logger.info("Receipt updated with ID: {}", receipt.getId());
 
         return mapReceiptToDTO(receipt);
     }
@@ -175,6 +193,8 @@ public class BookingService {
         }
 
         receiptRepository.delete(receipt);
+
+        logger.info("Receipt deleted with ID: {}", id);
     }
 
     public Page<ReceiptResponseDTO> search(

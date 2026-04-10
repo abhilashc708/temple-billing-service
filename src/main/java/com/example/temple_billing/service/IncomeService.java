@@ -10,6 +10,8 @@ import com.example.temple_billing.repository.IncomeRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.utility.IncomeSpecification;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class IncomeService {
 
+    private static final Logger logger = LoggerFactory.getLogger(IncomeService.class);
+
     private final IncomeRepository incomeRepository;
 
     // ============================
@@ -38,7 +42,9 @@ public class IncomeService {
             IncomeRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Creating income for user: {} with type: {}", userDetails.getUsername(), dto.getIncomeType());
         String receiptNo = generateReceiptNo(dto.getReceiptDate());
+        logger.debug("Generated receipt number: {}", receiptNo);
 
         Income income = Income.builder()
                 .receiptNo(receiptNo)
@@ -56,7 +62,7 @@ public class IncomeService {
                 .build();
 
         incomeRepository.save(income);
-
+        logger.info("Income created successfully with receipt no: {} and amount: {}", receiptNo, dto.getAmount());
         return mapToDTO(income);
     }
 
@@ -69,19 +75,23 @@ public class IncomeService {
             int size,
             CustomUserDetails userDetails) {
 
+        logger.debug("Fetching income records for user: {} - page: {}, size: {}", userDetails.getUsername(), page, size);
         Pageable pageable =
                 PageRequest.of(page, size, Sort.by("createdDate").descending());
 
         Page<Income> incomePage;
 
         if (isAdmin(userDetails)) {
+            logger.debug("Admin user - fetching all income records");
             incomePage = incomeRepository.findAll(pageable);
         } else {
+            logger.debug("Regular user - fetching own income records");
             incomePage =
                     incomeRepository.findByCreatedById(
                             userDetails.getUserId(), pageable);
         }
 
+        logger.info("Retrieved {} income records", incomePage.getTotalElements());
         return incomePage.map(this::mapToDTO);
     }
 
@@ -94,13 +104,18 @@ public class IncomeService {
             IncomeRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Updating income ID: {} by user: {}", id, userDetails.getUsername());
         Income income = incomeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Income not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Income not found - ID: {}", id);
+                    return new RuntimeException("Income not found");
+                });
 
         // Ownership check
         if (!isAdmin(userDetails) &&
                 !income.getCreatedBy().getId()
                         .equals(userDetails.getUserId())) {
+            logger.warn("Access denied for user: {} to update income: {}", userDetails.getUsername(), id);
             throw new RuntimeException("Access denied");
         }
 
@@ -117,7 +132,7 @@ public class IncomeService {
                 .build());
 
         incomeRepository.save(income);
-
+        logger.info("Income ID: {} updated successfully with new amount: {}", id, dto.getAmount());
         return mapToDTO(income);
     }
 
@@ -128,16 +143,22 @@ public class IncomeService {
     public void delete(Long id,
                        CustomUserDetails userDetails) {
 
+        logger.info("Deleting income ID: {} by user: {}", id, userDetails.getUsername());
         Income income = incomeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Income not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Income not found for deletion - ID: {}", id);
+                    return new RuntimeException("Income not found");
+                });
 
         if (!isAdmin(userDetails) &&
                 !income.getCreatedBy().getId()
                         .equals(userDetails.getUserId())) {
+            logger.warn("Access denied for user: {} to delete income: {}", userDetails.getUsername(), id);
             throw new RuntimeException("Access denied");
         }
 
         incomeRepository.delete(income);
+        logger.info("Income ID: {} deleted successfully", id);
     }
 
     // ============================
@@ -178,6 +199,9 @@ public class IncomeService {
             int size
     ) {
 
+        logger.debug("Searching income records - receiptNo: {}, incomeTypes: {}, from: {}, to: {}, page: {}, size: {}", 
+                receiptNo, incomeTypes, receiptFrom, receiptTo, page, size);
+
         Pageable pageable = PageRequest.of(
                 page,
                 size,
@@ -194,6 +218,7 @@ public class IncomeService {
         Page<Income> result =
                 incomeRepository.findAll(spec, pageable);
 
+        logger.info("Income search returned {} results", result.getTotalElements());
         return result.map(this::mapToDTO);
     }
 
@@ -220,27 +245,16 @@ public class IncomeService {
                 .build();
     }
 
-//    public Page<IncomeResponseDTO> incomeReport(IncomeSearchRequest request,
-//                                                int page,
-//                                                int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size,
-//                Sort.by("createdDate").descending());
-//
-//        Specification<Income> spec = IncomeSpecification.search(request);
-//
-//        Page<Income> incomeSearchList =
-//                incomeRepository.findAll(spec, pageable);
-//
-//        return incomeSearchList.map(this::mapToDTO);
-//    }
-public List<IncomeResponseDTO> incomeReport(IncomeSearchRequest request) {
+    public List<IncomeResponseDTO> incomeReport(IncomeSearchRequest request) {
+
+    logger.debug("Generating income report with request: {}", request);
 
     Specification<Income> spec = IncomeSpecification.search(request);
 
     List<Income> incomeList =
             incomeRepository.findAll(spec, Sort.by("createdDate").descending());
 
+    logger.info("Income report generated with {} records", incomeList.size());
     return incomeList.stream()
             .map(this::mapToDTO)
             .toList();
@@ -248,9 +262,13 @@ public List<IncomeResponseDTO> incomeReport(IncomeSearchRequest request) {
 
     public List<IncomeSummaryDTO> getSummaryReport(IncomeSearchRequest request) {
 
+        logger.debug("Generating income summary report by range type: {}", request.getRangeType());
+
         Specification<Income> spec = IncomeSpecification.search(request);
 
         List<Income> list = incomeRepository.findAll(spec);
+
+        logger.debug("Processing {} income records for summary", list.size());
 
         Map<String, Map<String, Double>> grouped = new LinkedHashMap<>();
 
@@ -281,6 +299,7 @@ public List<IncomeResponseDTO> incomeReport(IncomeSearchRequest request) {
             }
         }
 
+        logger.info("Income summary report created with {} summary entries", result.size());
         return result;
     }
 

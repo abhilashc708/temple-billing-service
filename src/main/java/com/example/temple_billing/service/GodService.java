@@ -6,6 +6,8 @@ import com.example.temple_billing.entity.God;
 import com.example.temple_billing.entity.User;
 import com.example.temple_billing.repository.GodRepository;
 import com.example.temple_billing.security.CustomUserDetails;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,8 @@ import java.time.LocalDateTime;
 
 @Service
 public class GodService {
+
+    private static final Logger logger = LoggerFactory.getLogger(GodService.class);
 
     private final GodRepository godRepository;
 
@@ -30,6 +34,8 @@ public class GodService {
             GodRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Creating god: {} by user: {}", dto.getGod(), userDetails.getUsername());
+
         God god = God.builder()
                 .god(dto.getGod())
                 .remarks(dto.getRemarks())
@@ -40,7 +46,7 @@ public class GodService {
                 .build();
 
         godRepository.save(god);
-
+        logger.info("God created successfully with ID: {}", god.getId());
         return mapToDTO(god);
     }
 
@@ -52,8 +58,13 @@ public class GodService {
             GodRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Updating god ID: {} by user: {}", id, userDetails.getUsername());
+
         God god = godRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("God not found"));
+                .orElseThrow(() -> {
+                    logger.warn("God not found - ID: {}", id);
+                    return new RuntimeException("God not found");
+                });
 
         god.setGod(dto.getGod());
         god.setRemarks(dto.getRemarks());
@@ -63,7 +74,7 @@ public class GodService {
                 .build());
 
         godRepository.save(god);
-
+        logger.info("God ID: {} updated successfully", id);
         return mapToDTO(god);
     }
 
@@ -75,11 +86,16 @@ public class GodService {
             int size,
             String sortBy) {
 
+        logger.debug("Fetching gods - page: {}, size: {}, sortBy: {}", page, size, sortBy);
+
         Pageable pageable =
                 PageRequest.of(page, size, Sort.by(sortBy).descending());
 
-        return godRepository.findAll(pageable)
+        Page<GodResponseDTO> result = godRepository.findAll(pageable)
                 .map(this::mapToDTO);
+
+        logger.info("Retrieved {} gods", result.getTotalElements());
+        return result;
     }
 
     // ======================
@@ -87,10 +103,16 @@ public class GodService {
     // ======================
     public void delete(Long id) {
 
+        logger.info("Deleting god ID: {}", id);
+
         God god = godRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("God not found"));
+                .orElseThrow(() -> {
+                    logger.warn("God not found for deletion - ID: {}", id);
+                    return new RuntimeException("God not found");
+                });
 
         godRepository.delete(god);
+        logger.info("God ID: {} deleted successfully", id);
     }
 
     // ======================

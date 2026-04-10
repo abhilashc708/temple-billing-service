@@ -5,6 +5,8 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -15,6 +17,8 @@ import java.util.Map;
 @Service
 public class JwtService {
 
+    private static final Logger logger = LoggerFactory.getLogger(JwtService.class);
+
     private final String SECRET =
             "TempleSecretKeyTempleSecretKeyTempleTempleSecretKey";
 
@@ -24,18 +28,8 @@ public class JwtService {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-//    public String generateToken(String username, String role) {
-//
-//        return Jwts.builder()
-//                .setSubject(username)
-//                .claim("role", role)
-//                .setIssuedAt(new Date())
-//                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-//                .signWith(getSignKey(), SignatureAlgorithm.HS256)
-//                .compact();
-//    }
-
     public String generateToken(Long userId, String username, String role, String name) {
+        logger.info("Generating JWT token for user: {}", username);
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);

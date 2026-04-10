@@ -5,7 +5,10 @@ import com.example.temple_billing.dto.DonationResponseDTO;
 import com.example.temple_billing.dto.DonationSearchRequest;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.service.DonationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,14 +22,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DonationController {
 
+    private static final Logger logger = LoggerFactory.getLogger(DonationController.class);
+
     private final DonationService donationService;
 
     @PostMapping
     public DonationResponseDTO create(
-            @RequestBody DonationRequestDTO dto,
+            @RequestBody @Valid DonationRequestDTO dto,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        return donationService.create(dto, userDetails);
+        logger.info("Creating donation from user: {}", userDetails.getUsername());
+        DonationResponseDTO response = donationService.create(dto, userDetails);
+        logger.info("Donation created successfully with ID: {}", response.getId());
+        return response;
     }
 
     @GetMapping
@@ -36,16 +44,22 @@ public class DonationController {
             @RequestParam(defaultValue = "createdDate") String sortBy,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        return donationService.getAll(page, size, sortBy, userDetails);
+        logger.debug("Fetching donations - page: {}, size: {}, sortBy: {}", page, size, sortBy);
+        Page<DonationResponseDTO> result = donationService.getAll(page, size, sortBy, userDetails);
+        logger.info("Retrieved {} donations", result.getTotalElements());
+        return result;
     }
 
     @PutMapping("/{id}")
     public DonationResponseDTO update(
             @PathVariable Long id,
-            @RequestBody DonationRequestDTO dto,
+            @RequestBody @Valid DonationRequestDTO dto,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        return donationService.update(id, dto, userDetails);
+        logger.info("Updating donation ID: {} by user: {}", id, userDetails.getUsername());
+        DonationResponseDTO response = donationService.update(id, dto, userDetails);
+        logger.info("Donation ID: {} updated successfully", id);
+        return response;
     }
 
     @DeleteMapping("/{id}")
@@ -53,7 +67,9 @@ public class DonationController {
             @PathVariable Long id,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
+        logger.info("Deleting donation ID: {} by user: {}", id, userDetails.getUsername());
         donationService.delete(id, userDetails);
+        logger.info("Donation ID: {} deleted successfully", id);
     }
 
     @GetMapping("/search")
@@ -70,7 +86,10 @@ public class DonationController {
             @RequestParam(defaultValue = "10") int size
     ) {
 
-        return donationService.search(
+        logger.debug("Searching donations - devoteeName: {}, paymentStatus: {}, paymentType: {}, from: {}, to: {}", 
+                devoteeName, paymentStatus, paymentType, donationFrom, donationTo);
+
+        Page<DonationResponseDTO> result = donationService.search(
                 devoteeName,
                 paymentStatus,
                 paymentType,
@@ -81,6 +100,8 @@ public class DonationController {
                 page,
                 size
         );
+        logger.info("Donation search returned {} results", result.getTotalElements());
+        return result;
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
@@ -88,6 +109,9 @@ public class DonationController {
     public List<DonationResponseDTO> searchBookings(
             @RequestBody DonationSearchRequest request) {
 
-        return donationService.donationReport(request);
+        logger.debug("Generating donation report");
+        List<DonationResponseDTO> result = donationService.donationReport(request);
+        logger.info("Donation report generated with {} records", result.size());
+        return result;
     }
 }

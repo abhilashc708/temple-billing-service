@@ -28,10 +28,6 @@ AND i.incomeType NOT IN ('Vazhipadu', 'Donation')
 """)
 Double getTodayIncomeTotal(LocalDateTime start, LocalDateTime end);
 
-//    Optional<Income> findByReceiptDateAndModeOfIncome(
-//            LocalDate date,
-//            String modeOfIncome
-//    );
 Optional<Income> findByReceiptDateAndModeOfIncomeAndIncomeType(
         LocalDate date,
         String mode,

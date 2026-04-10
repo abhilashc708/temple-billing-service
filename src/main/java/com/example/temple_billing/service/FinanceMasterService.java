@@ -9,6 +9,8 @@ import com.example.temple_billing.repository.FinanceMasterRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.utility.FinanceSpecification;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class FinanceMasterService {
 
+    private static final Logger logger = LoggerFactory.getLogger(FinanceMasterService.class);
+
     private final FinanceMasterRepository repository;
 
     // ======================
@@ -31,6 +35,9 @@ public class FinanceMasterService {
     public FinanceMasterResponseDTO create(
             FinanceMasterRequestDTO dto,
             CustomUserDetails userDetails) {
+
+        logger.info("Creating finance master record: {} (Type: {}) by user: {}", 
+                dto.getTitle(), dto.getTransactionType(), userDetails.getUsername());
 
         FinanceMaster entity = FinanceMaster.builder()
                 .transactionType(dto.getTransactionType())
@@ -43,7 +50,7 @@ public class FinanceMasterService {
                 .build();
 
         repository.save(entity);
-
+        logger.info("Finance master record created successfully with ID: {}", entity.getId());
         return mapToDTO(entity);
     }
 
@@ -56,8 +63,13 @@ public class FinanceMasterService {
             FinanceMasterRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Updating finance master record ID: {} by user: {}", id, userDetails.getUsername());
+
         FinanceMaster entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Record not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Finance master record not found - ID: {}", id);
+                    return new RuntimeException("Record not found");
+                });
 
         entity.setTransactionType(dto.getTransactionType());
         entity.setTitle(dto.getTitle());
@@ -68,7 +80,7 @@ public class FinanceMasterService {
                 .build());
 
         repository.save(entity);
-
+        logger.info("Finance master record ID: {} updated successfully", id);
         return mapToDTO(entity);
     }
 
@@ -78,17 +90,21 @@ public class FinanceMasterService {
             int size,
             String sortBy) {
 
+        logger.debug("Fetching finance master records - type: {}, page: {}, size: {}, sortBy: {}", type, page, size, sortBy);
+
         Pageable pageable =
                 PageRequest.of(page, size, Sort.by(sortBy).descending());
 
         Page<FinanceMaster> pageResult;
 
         if (type != null) {
+            logger.debug("Filtering by transaction type: {}", type);
             pageResult = repository.findByTransactionType(type, pageable);
         } else {
             pageResult = repository.findAll(pageable);
         }
 
+        logger.info("Retrieved {} finance master records", pageResult.getTotalElements());
         return pageResult.map(this::mapToDTO);
     }
 
@@ -98,10 +114,16 @@ public class FinanceMasterService {
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(Long id) {
 
+        logger.info("Deleting finance master record ID: {}", id);
+
         FinanceMaster entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Record not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Finance master record not found for deletion - ID: {}", id);
+                    return new RuntimeException("Record not found");
+                });
 
         repository.delete(entity);
+        logger.info("Finance master record ID: {} deleted successfully", id);
     }
 
     private FinanceMasterResponseDTO mapToDTO(FinanceMaster entity) {
@@ -128,6 +150,8 @@ public class FinanceMasterService {
             int size
     ) {
 
+        logger.debug("Searching finance master records - title: {}, page: {}, size: {}", title, page, size);
+
         Pageable pageable = PageRequest.of(
                 page, size,
                 Sort.by("createdDate").descending());
@@ -138,6 +162,7 @@ public class FinanceMasterService {
         Page<FinanceMaster> financeList =
                 repository.findAll(spec, pageable);
 
+        logger.info("Finance master search returned {} results", financeList.getTotalElements());
         return financeList.map(this::mapToDTO);
     }
 }

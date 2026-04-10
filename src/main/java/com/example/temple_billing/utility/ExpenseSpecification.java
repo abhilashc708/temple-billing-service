@@ -60,12 +60,6 @@ public class ExpenseSpecification {
 
             List<Predicate> predicates = new ArrayList<>();
 
-
-//            if (request.getExpenseTypes() != null && !request.getExpenseTypes().isEmpty()) {
-//                predicates.add(cb.equal(
-//                        root.get("expenseType"),
-//                        request.getExpenseTypes()));
-//            }
             if (request.getExpenseTypes() != null && !request.getExpenseTypes().isEmpty()) {
                 predicates.add(root.get("expenseType").in(request.getExpenseTypes()));
             }

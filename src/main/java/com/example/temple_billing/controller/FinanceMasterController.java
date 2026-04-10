@@ -5,7 +5,10 @@ import com.example.temple_billing.dto.FinanceMasterResponseDTO;
 import com.example.temple_billing.entity.TransactionType;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.service.FinanceMasterService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,23 +19,31 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class FinanceMasterController {
 
+    private static final Logger logger = LoggerFactory.getLogger(FinanceMasterController.class);
+
     private final FinanceMasterService service;
 
     @PostMapping
     public FinanceMasterResponseDTO create(
-            @RequestBody FinanceMasterRequestDTO dto,
+            @RequestBody @Valid FinanceMasterRequestDTO dto,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        return service.create(dto, userDetails);
+        logger.info("Creating finance master record by user: {}", userDetails.getUsername());
+        FinanceMasterResponseDTO response = service.create(dto, userDetails);
+        logger.info("Finance master record created successfully with ID: {}", response.getId());
+        return response;
     }
 
     @PutMapping("/{id}")
     public FinanceMasterResponseDTO update(
             @PathVariable Long id,
-            @RequestBody FinanceMasterRequestDTO dto,
+            @RequestBody @Valid FinanceMasterRequestDTO dto,
             @AuthenticationPrincipal CustomUserDetails userDetails) {
 
-        return service.update(id, dto, userDetails);
+        logger.info("Updating finance master record ID: {} by user: {}", id, userDetails.getUsername());
+        FinanceMasterResponseDTO response = service.update(id, dto, userDetails);
+        logger.info("Finance master record ID: {} updated successfully", id);
+        return response;
     }
 
     @GetMapping
@@ -43,12 +54,17 @@ public class FinanceMasterController {
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "createdDate") String sortBy) {
 
-        return service.getAll(type, page, size, sortBy);
+        logger.debug("Fetching finance master records - type: {}, page: {}, size: {}, sortBy: {}", type, page, size, sortBy);
+        Page<FinanceMasterResponseDTO> result = service.getAll(type, page, size, sortBy);
+        logger.info("Retrieved {} finance master records", result.getTotalElements());
+        return result;
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+        logger.info("Deleting finance master record ID: {}", id);
         service.delete(id);
+        logger.info("Finance master record ID: {} deleted successfully", id);
     }
 
     @PreAuthorize("hasAnyRole('ADMIN','USER')")
@@ -60,10 +76,13 @@ public class FinanceMasterController {
             @RequestParam(defaultValue = "10") int size
     ) {
 
-        return service.search(
+        logger.debug("Searching finance master records - title: {}, page: {}, size: {}", title, page, size);
+        Page<FinanceMasterResponseDTO> result = service.search(
                 title,
                 page,
                 size
         );
+        logger.info("Finance master search returned {} results", result.getTotalElements());
+        return result;
     }
 }

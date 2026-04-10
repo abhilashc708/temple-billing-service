@@ -1,5 +1,7 @@
 package com.example.temple_billing.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,26 +22,33 @@ import java.util.List;
 @Configuration
 public class SecurityConfig {
 
+    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
+
     private final JwtAuthenticationFilter jwtFilter;
 
     public SecurityConfig(JwtAuthenticationFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
+        logger.debug("SecurityConfig initialized with JwtAuthenticationFilter");
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
+        logger.debug("BCryptPasswordEncoder bean created");
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration config) throws Exception {
+        logger.debug("AuthenticationManager bean created");
         return config.getAuthenticationManager();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)
             throws Exception {
+
+        logger.info("Configuring SecurityFilterChain");
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -50,18 +59,17 @@ public class SecurityConfig {
                                 org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/login").permitAll()
-                        //.requestMatchers("/api/bookings/**").hasAnyRole("ADMIN", "USER")
-                        //.requestMatchers("/api/offerings").hasAnyRole("ADMIN", "USER")
-                        //.requestMatchers("/api/offerings/**").hasRole("ADMIN")
-                        //.requestMatchers("/api/gods").hasAnyRole("ADMIN","USER")
-                        //.requestMatchers("/api/gods/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        
+        logger.info("SecurityFilterChain configured successfully - CSRF disabled, JWT filter added, STATELESS session management enabled");
         return http.build();
     }
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
+        logger.debug("Configuring CORS settings");
+        
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200","https://mankurussi-temple-billing-app.netlify.app"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -71,6 +79,8 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
+        
+        logger.info("CORS configuration applied - Allowed origins: http://localhost:4200, https://mankurussi-temple-billing-app.netlify.app");
         return source;
     }
 }

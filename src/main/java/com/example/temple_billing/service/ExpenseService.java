@@ -10,6 +10,8 @@ import com.example.temple_billing.repository.ExpenseRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import com.example.temple_billing.utility.ExpenseSpecification;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,8 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ExpenseService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseService.class);
+
     private final ExpenseRepository expenseRepository;
 
     // ============================
@@ -38,7 +42,9 @@ public class ExpenseService {
             ExpenseRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Creating expense for user: {} with type: {}", userDetails.getUsername(), dto.getExpenseType());
         String receiptNo = generateReceiptNo(dto.getReceiptDate());
+        logger.debug("Generated receipt number: {}", receiptNo);
 
         Expense expense = Expense.builder()
                 .receiptNo(receiptNo)
@@ -57,7 +63,7 @@ public class ExpenseService {
                 .build();
 
         expenseRepository.save(expense);
-
+        logger.info("Expense created successfully with receipt no: {} and amount: {}", receiptNo, dto.getAmount());
         return mapToDTO(expense);
     }
 
@@ -70,19 +76,22 @@ public class ExpenseService {
             int size,
             CustomUserDetails userDetails) {
 
+        logger.debug("Fetching expenses for user: {} - page: {}, size: {}", userDetails.getUsername(), page, size);
         Pageable pageable =
                 PageRequest.of(page, size, Sort.by("createdDate").descending());
 
         Page<Expense> expensePage;
 
         if (isAdmin(userDetails)) {
+            logger.debug("Admin user - fetching all expenses");
             expensePage = expenseRepository.findAll(pageable);
         } else {
+            logger.debug("Regular user - fetching own expenses");
             expensePage =
                     expenseRepository.findByCreatedById(
                             userDetails.getUserId(), pageable);
         }
-
+        logger.info("Retrieved {} expenses", expensePage.getTotalElements());
         return expensePage.map(this::mapToDTO);
     }
 
@@ -95,12 +104,17 @@ public class ExpenseService {
             ExpenseRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Updating expense ID: {} by user: {}", id, userDetails.getUsername());
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Expense not found - ID: {}", id);
+                    return new RuntimeException("Expense not found");
+                });
 
         if (!isAdmin(userDetails) &&
                 !expense.getCreatedBy().getId()
                         .equals(userDetails.getUserId())) {
+            logger.warn("Access denied for user: {} to update expense: {}", userDetails.getUsername(), id);
             throw new RuntimeException("Access denied");
         }
 
@@ -118,7 +132,7 @@ public class ExpenseService {
                 .build());
 
         expenseRepository.save(expense);
-
+        logger.info("Expense ID: {} updated successfully with new amount: {}", id, dto.getAmount());
         return mapToDTO(expense);
     }
 
@@ -129,16 +143,22 @@ public class ExpenseService {
     public void delete(Long id,
                        CustomUserDetails userDetails) {
 
+        logger.info("Deleting expense ID: {} by user: {}", id, userDetails.getUsername());
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Expense not found for deletion - ID: {}", id);
+                    return new RuntimeException("Expense not found");
+                });
 
         if (!isAdmin(userDetails) &&
                 !expense.getCreatedBy().getId()
                         .equals(userDetails.getUserId())) {
+            logger.warn("Access denied for user: {} to delete expense: {}", userDetails.getUsername(), id);
             throw new RuntimeException("Access denied");
         }
 
         expenseRepository.delete(expense);
+        logger.info("Expense ID: {} deleted successfully", id);
     }
 
     // ============================
@@ -179,6 +199,9 @@ public class ExpenseService {
             int size
     ) {
 
+        logger.debug("Searching expenses - receiptNo: {}, expenseTypes: {}, from: {}, to: {}, page: {}, size: {}", 
+                receiptNo, expenseTypes, receiptFrom, receiptTo, page, size);
+
         Pageable pageable = PageRequest.of(
                 page,
                 size,
@@ -195,6 +218,7 @@ public class ExpenseService {
         Page<Expense> result =
                 expenseRepository.findAll(spec, pageable);
 
+        logger.info("Expense search returned {} results", result.getTotalElements());
         return result.map(this::mapToDTO);
     }
 
@@ -222,11 +246,14 @@ public class ExpenseService {
 
     public List<ExpenseResponseDTO> expenseReport(ExpenseSearchRequest request) {
 
+        logger.debug("Generating expense report with request: {}", request);
+
         Specification<Expense> spec = ExpenseSpecification.search(request);
 
         List<Expense> expenseSearchList =
                 expenseRepository.findAll(spec, Sort.by("createdDate").descending());
 
+        logger.info("Expense report generated with {} records", expenseSearchList.size());
         return expenseSearchList.stream()
                 .map(this::mapToDTO)
                 .toList();
@@ -234,9 +261,13 @@ public class ExpenseService {
 
     public List<ExpenseSummaryDTO> getSummaryReport(ExpenseSearchRequest request) {
 
+        logger.debug("Generating expense summary report by range type: {}", request.getRangeType());
+
         Specification<Expense> spec = ExpenseSpecification.search(request);
 
         List<Expense> list = expenseRepository.findAll(spec);
+
+        logger.debug("Processing {} expenses for summary", list.size());
 
         Map<String, Map<String, Double>> grouped = new LinkedHashMap<>();
 
@@ -267,6 +298,7 @@ public class ExpenseService {
             }
         }
 
+        logger.info("Expense summary report created with {} summary entries", result.size());
         return result;
     }
 

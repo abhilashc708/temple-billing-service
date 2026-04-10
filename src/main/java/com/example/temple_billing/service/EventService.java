@@ -7,6 +7,8 @@ import com.example.temple_billing.entity.User;
 import com.example.temple_billing.repository.EventRepository;
 import com.example.temple_billing.security.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class EventService {
 
+    private static final Logger logger = LoggerFactory.getLogger(EventService.class);
+
     private final EventRepository eventRepository;
 
     // ========================
@@ -30,6 +34,8 @@ public class EventService {
             EventRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Creating event: {} by user: {}", dto.getEventName(), userDetails.getUsername());
+
         Event event = Event.builder()
                 .eventName(dto.getEventName())
                 .createdDate(LocalDateTime.now())
@@ -39,7 +45,7 @@ public class EventService {
                 .build();
 
         eventRepository.save(event);
-
+        logger.info("Event created successfully: {} with ID: {}", dto.getEventName(), event.getId());
         return mapToDTO(event);
     }
 
@@ -52,8 +58,12 @@ public class EventService {
             EventRequestDTO dto,
             CustomUserDetails userDetails) {
 
+        logger.info("Updating event ID: {} by user: {}", id, userDetails.getUsername());
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Event not found - ID: {}", id);
+                    return new RuntimeException("Event not found");
+                });
 
         event.setEventName(dto.getEventName());
         event.setModifiedDate(LocalDateTime.now());
@@ -62,7 +72,7 @@ public class EventService {
                 .build());
 
         eventRepository.save(event);
-
+        logger.info("Event ID: {} updated successfully with new name: {}", id, dto.getEventName());
         return mapToDTO(event);
     }
 
@@ -75,11 +85,16 @@ public class EventService {
             int size,
             String sortBy) {
 
+        logger.debug("Fetching events - page: {}, size: {}, sortBy: {}", page, size, sortBy);
+
         Pageable pageable =
                 PageRequest.of(page, size, Sort.by(sortBy).descending());
 
-        return eventRepository.findAll(pageable)
+        Page<EventResponseDTO> result = eventRepository.findAll(pageable)
                 .map(this::mapToDTO);
+
+        logger.info("Retrieved {} events", result.getTotalElements());
+        return result;
     }
 
     // ========================
@@ -88,10 +103,16 @@ public class EventService {
     @PreAuthorize("hasRole('ADMIN')")
     public void delete(Long id) {
 
+        logger.info("Deleting event ID: {}", id);
+
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+                .orElseThrow(() -> {
+                    logger.warn("Event not found for deletion - ID: {}", id);
+                    return new RuntimeException("Event not found");
+                });
 
         eventRepository.delete(event);
+        logger.info("Event ID: {} deleted successfully", id);
     }
 
     private EventResponseDTO mapToDTO(Event event) {
