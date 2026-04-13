@@ -286,9 +286,10 @@ public class IncomeService {
         }
 
         List<IncomeSummaryDTO> result = new ArrayList<>();
+        List<String> sortedPeriods = new ArrayList<>(grouped.keySet());
+        sortedPeriods.sort(Comparator.reverseOrder());
 
-        for (String period : grouped.keySet()) {
-
+        for (String period : sortedPeriods) {
             for (String type : grouped.get(period).keySet()) {
 
                 result.add(new IncomeSummaryDTO(
