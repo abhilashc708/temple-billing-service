@@ -86,18 +86,36 @@ public class DashboardService {
             LocalDateTime end = today.plusDays(1).atStartOfDay();
 
 
-            Double otherIncome = incomeRepository.getTodayIncomeTotal(start, end);
+            Object[] incomeResult = incomeRepository.getTodayOtherIncomeSummary(start, end);
+
+            double otherCash = 0;
+            double otherUpi = 0;
+            long otherCashCount = 0;
+            long otherUpiCount = 0;
+
+            if (incomeResult != null && incomeResult.length > 0) {
+
+                Object[] row = (Object[]) incomeResult[0];
+
+                if (row.length >= 2) {
+                    otherCash = row[0] != null ? ((Number) row[0]).doubleValue() : 0;
+                    otherUpi = row[1] != null ? ((Number) row[1]).doubleValue() : 0;
+                    otherCashCount = row[2] != null ? ((Number) row[2]).longValue() : 0;
+                    otherUpiCount = row[3] != null ? ((Number) row[3]).longValue() : 0;
+                }
+            }
+
             Double donationTotal = donationRepository.getTodayDonationTotal(start, end);
             Double expenseTotal = expenseRepository.getTodayExpenseTotal(start, end);
 
-            if (otherIncome == null) otherIncome = 0.0;
             if (donationTotal == null) donationTotal = 0.0;
             if (expenseTotal == null) expenseTotal = 0.0;
 
-            logger.debug("Today's summary - Other Income: Rs.{}, Donation Total: Rs.{}, Expense Total: Rs.{}", 
-                    otherIncome, donationTotal, expenseTotal);
+            logger.debug("Today's summary - Donation Total: Rs.{}, Expense Total: Rs.{}",
+                     donationTotal, expenseTotal);
 
-            double bookingTotal = cash + upi + otherIncome;
+            double otherIncomeTotal = otherCash + otherUpi;
+            double bookingTotal = cash + upi + otherIncomeTotal;
             long totalDonationCount = donationCashCount + donationUpiCount;
             long totalCount = cashCount + upiCount;
 
@@ -107,7 +125,6 @@ public class DashboardService {
             return new DashboardSummaryDTO(
                     cash,
                     upi,
-                    otherIncome,
                     bookingTotal,
                     donationTotal,
                     expenseTotal,
@@ -118,7 +135,11 @@ public class DashboardService {
                     donationUpi,
                     donationCashCount,
                     donationUpiCount,
-                    totalDonationCount
+                    totalDonationCount,
+                    otherCash,
+                    otherUpi,
+                    otherCashCount,
+                    otherUpiCount
             );
         } catch (Exception e) {
             logger.error("Error generating dashboard summary: {}", e.getMessage(), e);

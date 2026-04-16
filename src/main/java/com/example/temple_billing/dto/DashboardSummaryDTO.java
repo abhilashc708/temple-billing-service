@@ -8,7 +8,6 @@ public class DashboardSummaryDTO {
     private Double bookingUpi;
     private Double donationCash;
     private Double donationUpi;
-    private Double otherIncome;
 
     private Double bookingTotal;
 
@@ -27,9 +26,13 @@ public class DashboardSummaryDTO {
 
     private Long totalDonationCount;
 
+    private double otherCash;
+    private double otherUpi;
+    private long otherCashCount;
+    private long otherUpiCount;
+
     public DashboardSummaryDTO(Double bookingCash,
                                Double bookingUpi,
-                               Double otherIncome,
                                Double bookingTotal,
                                Double donationTotal,
                                Double expenseTotal,
@@ -40,11 +43,14 @@ public class DashboardSummaryDTO {
                                Double donationUpi,
                                Long donationCashCount,
                                Long donationUpiCount,
-                               Long totalDonationCount) {
+                               Long totalDonationCount,
+                               Double otherCash,
+                               Double otherUpi,
+                               Long otherCashCount,
+                               Long otherUpiCount) {
 
         this.bookingCash = bookingCash;
         this.bookingUpi = bookingUpi;
-        this.otherIncome = otherIncome;
         this.bookingTotal = bookingTotal;
         this.donationTotal = donationTotal;
         this.expenseTotal = expenseTotal;
@@ -56,5 +62,9 @@ public class DashboardSummaryDTO {
         this.donationCashCount = donationCashCount;
         this.donationUpiCount = donationUpiCount;
         this.totalDonationCount = totalDonationCount;
+        this.otherCash = otherCash;
+        this.otherUpi = otherUpi;
+        this.otherCashCount = otherCashCount;
+        this.otherUpiCount = otherUpiCount;
     }
 }

@@ -21,12 +21,16 @@ public interface IncomeRepository extends JpaRepository<Income, Long>,
     long countByReceiptDate(LocalDate receiptDate);
 
 @Query("""
-SELECT COALESCE(SUM(i.amount),0)
+SELECT 
+    COALESCE(SUM(CASE WHEN i.modeOfIncome = 'CASH' THEN i.amount END),0),
+    COALESCE(SUM(CASE WHEN i.modeOfIncome = 'UPI' THEN i.amount END),0),
+    COUNT(CASE WHEN i.modeOfIncome = 'CASH' THEN 1 END),
+    COUNT(CASE WHEN i.modeOfIncome = 'UPI' THEN 1 END)
 FROM Income i
 WHERE i.createdDate BETWEEN :start AND :end
 AND i.incomeType NOT IN ('Vazhipadu', 'Donation')
 """)
-Double getTodayIncomeTotal(LocalDateTime start, LocalDateTime end);
+Object[] getTodayOtherIncomeSummary(LocalDateTime start, LocalDateTime end);
 
 Optional<Income> findByReceiptDateAndModeOfIncomeAndIncomeType(
         LocalDate date,
