@@ -58,8 +58,25 @@ public class SecurityConfig {
                         session.sessionCreationPolicy(
                                 org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/",
+                                "/index.html",
+                                "/favicon.ico",
+                                "/**/*.js",
+                                "/**/*.css",
+                                "/**/*.png",
+                                "/**/*.jpg",
+                                "/**/*.svg",
+                                "/assets/**"
+                        ).permitAll()
+                        .requestMatchers(
+                                "/dashboard",
+                                "/login",
+                                "/**"
+                        ).permitAll()
                         .requestMatchers("/api/auth/login").permitAll()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/**").authenticated())
+                        //.anyRequest().authenticated())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         
         logger.info("SecurityFilterChain configured successfully - CSRF disabled, JWT filter added, STATELESS session management enabled");

@@ -16,7 +16,6 @@ public class OfferingRequestDTO {
     @NotBlank(message = "Offering type is required")
     private String offeringType;
 
-    @NotBlank(message = "Offering god is required")
     private String offeringGod;
 
     @Positive(message = "Price must be positive")
